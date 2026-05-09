@@ -5,7 +5,7 @@ AASPI (Attribute Assisted Seismic Processing & Interpretation)
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
- **[Launch the tool](https://hbedle-subsurface.github.io/attribute-selector/)**
+🌐 **[Launch the tool](https://hbedle-subsurface.github.io/seismic-attribute-selector/)**
 
 ---
 
@@ -15,7 +15,9 @@ Walk into any seismic interpretation project and you will find one of two proble
 
 Neither approach is thoughtful. Both are common.
 
-This tool asks you about your geologic target, your data quality, and your workflow — then recommends a tiered starting attribute set with plain-language explanations of what each attribute measures and why it is relevant to your specific situation.
+This tool asks you about your data conditioning, your geologic target, your data quality, and your workflow — then recommends a preprocessing checklist followed by a tiered starting attribute set with plain-language explanations of what each attribute measures and why it is relevant to your specific situation.
+
+One thing this tool emphasizes that is often overlooked: **every geometric attribute — coherence, curvature, aberrancy, GLCM texture, nonparallelism — requires structural dip as input.** Computing these attributes without dip-guided windows produces vertically-smeared results that mix geology from different layers. The tool flags this clearly before recommending any geometric attributes.
 
 ---
 
@@ -31,13 +33,20 @@ Starting with the wrong attributes — or too many attributes — does not just 
 
 ## What it covers
 
-**Section 1 — Geologic target**
+**Section 1 — Data conditioning & preprocessing**
+- Spectral balancing status
+- Structure-oriented filtering (SOF) status
+- Acquisition footprint treatment
+- Structural dip computation — with a strong reminder that coherence, curvature, aberrancy, GLCM, and nonparallelism ALL require dip-guided computation as input
+- Coherent noise problems (ground roll, migration artifacts, multiples)
+
+**Section 2 — Geologic target**
 - Primary interpretation target (seismic facies, channels, reefs, faults, DHI, MTCs, thin beds, basement)
 - Secondary targets (fractures, porosity, fluids, thickness, unconformities)
 - Depositional setting
 - Target resolution relative to tuning thickness
 
-**Section 2 — Your seismic data**
+**Section 3 — Your seismic data**
 - Data dimensionality (3D, 2D)
 - Amplitude preservation status
 - Pre-stack data availability
@@ -45,12 +54,13 @@ Starting with the wrong attributes — or too many attributes — does not just 
 - Acquisition footprint
 - Structure-oriented filtering status
 
-**Section 3 — Your workflow**
+**Section 4 — Your workflow**
 - Workflow goal (direct interpretation, unsupervised ML, supervised ML, or both)
 - Software environment
 - Target attribute set size
 
-**Output — three-tiered recommendations:**
+**Output — three tiers plus a preprocessing checklist:**
+- **Preprocessing steps needed** — flagged before any attribute recommendations, color-coded by urgency. Urgent steps (missing dip computation, unaddressed footprint, coherent noise) appear in crimson. Recommended steps (spectral balancing, SOF) appear in amber. The tool makes clear that skipping preprocessing doesn't save time — it means computing attributes from noise.
 - **Core set** — compute these first; tailored to your specific target and data
 - **Consider adding** — context-dependent additions based on secondary targets and data quality
 - **AASPI-specific attributes** — capabilities not widely available in standard platforms, flagged separately
@@ -70,6 +80,16 @@ The tool recommends from a library of attributes spanning:
 | Texture | GLCM texture attributes, Nonparallelism, Disorder |
 | AVO / DHI | Distance Quadrant (DQ) trace, Theta PX, Isochron/Half Isochron, StickOgram |
 | Impedance | Relative acoustic impedance |
+
+The tool also generates a **preprocessing checklist** covering:
+
+| Step | AASPI Program |
+|---|---|
+| Spectral balancing | spectral_balance |
+| Structural dip computation | dip3d |
+| Structure-oriented filtering | sof3d |
+| Acquisition footprint suppression | kx-ky footprint workflow or CWT footprint workflow |
+| Coherent noise suppression | coh_noise_suppression_workflow or filter_spectral_components |
 
 ---
 
@@ -105,7 +125,7 @@ No attribute expertise required. Every recommendation includes a plain-language 
 
 Visit the link above. The tool runs entirely in your browser — nothing is stored or transmitted anywhere.
 
-Work through three short sections of questions (~5 minutes). At the end you receive a three-tiered attribute recommendation with:
+Work through four short sections of questions (~5 minutes). At the end you receive a preprocessing checklist followed by a three-tiered attribute recommendation with:
 - Plain-language descriptions of what each attribute measures
 - Specific notes on why each attribute is relevant to your target
 - Warnings where data quality may limit an attribute's reliability
