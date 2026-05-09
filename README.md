@@ -5,19 +5,19 @@ AASPI (Attribute Assisted Seismic Processing & Interpretation)
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
-🌐 **[Launch the tool](https://hbedle-subsurface.github.io/seismic-attribute-selector/)**
+🌐 **[Launch the tool](https://hbedle-subsurface.github.io/attribute-selector/)**
 
 ---
 
 ## The short version
 
-Walk into any seismic interpretation project and you will find one of two problems. Either someone has computed three attributes — envelope, coherence, and curvature — because those are the ones they always compute. Or someone has computed forty-seven attributes because the software let them, and now they are wondering what to do with all of them.
+Walk into any seismic interpretation project and you will find one of two problems. Either someone has computed three attributes — envelope, coherence, and curvature — because those are the ones they always compute. Or someone has computed forty-seven attributes because the software let them, and now they are wondering what to do with all of them...
 
 Neither approach is thoughtful. Both are common.
 
 This tool asks you about your data conditioning, your geologic target, your data quality, and your workflow — then recommends a preprocessing checklist followed by a tiered starting attribute set with plain-language explanations of what each attribute measures and why it is relevant to your specific situation.
 
-One thing this tool emphasizes that is often overlooked: **every geometric attribute — coherence, curvature, aberrancy, GLCM texture, nonparallelism — requires structural dip as input.** Computing these attributes without dip-guided windows produces vertically-smeared results that mix geology from different layers. The tool flags this clearly before recommending any geometric attributes.
+One thing this tool emphasizes that is often overlooked: **every geometric attribute — coherence, curvature, aberrancy — requires structural dip as input.** Computing these attributes without dip-guided windows produces vertically-smeared results that mix geology from different layers. The tool flags this clearly before recommending any geometric attributes.
 
 ---
 
@@ -29,6 +29,7 @@ Starting with the wrong attributes — or too many attributes — does not just 
 
 **The right order of operations:** start with the geology, let the geology tell you which physical properties matter, then find the attributes that measure those properties.
 
+**This tool is to help you get started - not to select your final and best attributes.  Only you can do that - because you know the data and the geologic target!**
 ---
 
 ## What it covers
@@ -95,7 +96,7 @@ The tool also generates a **preprocessing checklist** covering:
 
 ## AASPI connection
 
-Many of the attributes in this tool were developed at or are uniquely implemented by AASPI at the University of Oklahoma. These include:
+Many of the attributes in this tool were developed at and some are uniquely implemented by AASPI at the University of Oklahoma. These include:
 
 - **Distance Quadrant (DQ) trace and Theta PX** — novel AVO attributes that provide relative porosity and hydrocarbon pore volume estimates at every seismic sample across all AVO classes without requiring a priori knowledge of petrophysics or wavelets
 - **Aberrancy** — third derivative of structure, detecting subtle flexures that coherence and curvature miss; particularly valuable for basement-involved faults
@@ -112,12 +113,12 @@ More information: [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
 ## Who it is for
 
+- **Anyone** who has ever opened the attribute library in their interpretation software and felt slightly overwhelmed
 - **Geoscientists** starting a new seismic interpretation project who want a principled starting point for attribute selection
 - **AASPI students** learning which attributes are appropriate for which geologic problems
 - **ML practitioners** building multi-attribute seismic classification workflows who need a defensible, non-redundant input set
-- **Anyone** who has ever opened the attribute library in their interpretation software and felt slightly overwhelmed
 
-No attribute expertise required. Every recommendation includes a plain-language explanation of what the attribute measures and why it is relevant to your situation.
+No attribute expertise required, and hopefully this will get you curious to try new ones! Every recommendation includes a plain-language explanation of what the attribute measures and why it is relevant to your situation.
 
 ---
 
