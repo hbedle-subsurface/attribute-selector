@@ -5,19 +5,19 @@ AASPI (Attribute Assisted Seismic Processing & Interpretation)
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
-🌐 **[Launch the tool](https://hbedle-subsurface.github.io/attribute-selector/)**
+🌐 **[Launch the tool](https://hbedle-subsurface.github.io/seismic-attribute-selector/)**
 
 ---
 
 ## The short version
 
-Walk into any seismic interpretation project and you will find one of two problems. Either someone has computed three attributes — envelope, coherence, and curvature — because those are the ones they always compute. Or someone has computed forty-seven attributes because the software let them, and now they are wondering what to do with all of them...
+Walk into any seismic interpretation project and you will find one of two problems. Either someone has computed three attributes — envelope, coherence, and curvature — because those are the ones they always compute. Or someone has computed forty-seven attributes because the software let them, and now they are wondering what to do with all of them.
 
-Neither approach is thoughtful. Both are common.
+Neither approach is thoughtful.. but attribute choice can be an overwhelming situation when first getting started! But, unfortunately, there is not a cookie cutter recipe to get you started.
 
-This tool asks you about your data conditioning, your geologic target, your data quality, and your workflow — then recommends a preprocessing checklist followed by a tiered starting attribute set with plain-language explanations of what each attribute measures and why it is relevant to your specific situation.
+So, I designed this to tool asks you about your data conditioning, your geologic target, your data quality, and your workflow — then recommends a preprocessing checklist followed by a tiered starting attribute set with plain-language explanations of what each attribute measures and why it is relevant to your specific situation.
 
-One thing this tool emphasizes that is often overlooked: **every geometric attribute — coherence, curvature, aberrancy — requires structural dip as input.** Computing these attributes without dip-guided windows produces vertically-smeared results that mix geology from different layers. The tool flags this clearly before recommending any geometric attributes.
+One thing this tool emphasizes that is often overlooked: **every geometric attribute — coherence, curvature, aberrancy, GLCM texture, nonparallelism, etc — requires structural dip as input.** Computing these attributes without dip-guided windows produces vertically-smeared results that mix geology from different layers. The tool flags this clearly before recommending any geometric attributes.
 
 ---
 
@@ -25,46 +25,44 @@ One thing this tool emphasizes that is often overlooked: **every geometric attri
 
 The right attribute set for mapping deepwater turbidite channels is not the same as the right set for carbonate reef detection, basement fault mapping, or DHI identification. Your data quality, your target depth, whether you have pre-stack data, and whether you are feeding the result into machine learning all change what you should compute.
 
-Starting with the wrong attributes — or too many attributes — does not just waste computation time. It actively degrades machine learning results by introducing redundant or irrelevant information, and it makes direct interpretation harder by burying the geologic signal in noise.
+Starting with the wrong attributes — or too many attributes — does not just waste computation time. It actively degrades seismic interpretation and machine learning results by introducing redundant or irrelevant information, and it makes direct interpretation harder by burying the geologic signal in noise.
 
 **The right order of operations:** start with the geology, let the geology tell you which physical properties matter, then find the attributes that measure those properties.
 
-**This tool is to help you get started - not to select your final and best attributes.  Only you can do that - because you know the data and the geologic target!**
 ---
 
 ## What it covers
 
-**Section 1 — Data conditioning & preprocessing**
-- Spectral balancing status
-- Structure-oriented filtering (SOF) status
-- Acquisition footprint treatment
-- Structural dip computation — with a strong reminder that coherence, curvature, aberrancy, GLCM, and nonparallelism ALL require dip-guided computation as input
-- Coherent noise problems (ground roll, migration artifacts, multiples)
+**Section 1 — Your data and preprocessing** (9 questions)
 
-**Section 2 — Geologic target**
+Everything about your data and its conditioning in one place — no jumping between sections to answer related questions.
+
+- Data type (3D/2D, density)
+- Amplitude preservation status
+- Pre-stack data availability
+- Signal-to-noise ratio in the target interval
+- Spectral balancing status
+- Structural dip computation — with a strong reminder that coherence, curvature, aberrancy, GLCM, and nonparallelism ALL require dip-guided computation as input
+- Structure-oriented filtering (SOF) status
+- Acquisition footprint status
+- Coherent noise (ground roll, multiples, migration artifacts)
+
+**Section 2 — Your geologic target** (4 questions)
 - Primary interpretation target (seismic facies, channels, reefs, faults, DHI, MTCs, thin beds, basement)
 - Secondary targets (fractures, porosity, fluids, thickness, unconformities)
 - Depositional setting
 - Target resolution relative to tuning thickness
 
-**Section 3 — Your seismic data**
-- Data dimensionality (3D, 2D)
-- Amplitude preservation status
-- Pre-stack data availability
-- Signal-to-noise ratio
-- Acquisition footprint
-- Structure-oriented filtering status
-
-**Section 4 — Your workflow**
+**Section 3 — Your workflow** (3 questions)
 - Workflow goal (direct interpretation, unsupervised ML, supervised ML, or both)
 - Software environment
 - Target attribute set size
 
-**Output — three tiers plus a preprocessing checklist:**
-- **Preprocessing steps needed** — flagged before any attribute recommendations, color-coded by urgency. Urgent steps (missing dip computation, unaddressed footprint, coherent noise) appear in crimson. Recommended steps (spectral balancing, SOF) appear in amber. The tool makes clear that skipping preprocessing doesn't save time — it means computing attributes from noise.
+**Output — preprocessing checklist followed by three-tiered attribute recommendations:**
+- **Preprocessing steps needed** — shown before any attribute recommendations, color-coded by urgency. Steps flagged "DO FIRST" (crimson) include missing dip computation, unaddressed footprint, and coherent noise. Steps flagged "RECOMMENDED" (amber) include spectral balancing and SOF. The tool is direct: skipping preprocessing doesn't save time — it means computing attributes from noise.
 - **Core set** — compute these first; tailored to your specific target and data
 - **Consider adding** — context-dependent additions based on secondary targets and data quality
-- **AASPI-specific attributes** — capabilities not widely available in standard platforms, flagged separately
+- **AASPI-specific attributes** — capabilities not widely available in standard platforms, flagged separately in case you have access
 
 ---
 
@@ -96,7 +94,7 @@ The tool also generates a **preprocessing checklist** covering:
 
 ## AASPI connection
 
-Many of the attributes in this tool were developed at and some are uniquely implemented by AASPI at the University of Oklahoma. These include:
+Many of the attributes in this tool were developed at or are uniquely implemented by AASPI at the University of Oklahoma. These include:
 
 - **Distance Quadrant (DQ) trace and Theta PX** — novel AVO attributes that provide relative porosity and hydrocarbon pore volume estimates at every seismic sample across all AVO classes without requiring a priori knowledge of petrophysics or wavelets
 - **Aberrancy** — third derivative of structure, detecting subtle flexures that coherence and curvature miss; particularly valuable for basement-involved faults
@@ -115,10 +113,8 @@ More information: [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
 
 - **Anyone** who has ever opened the attribute library in their interpretation software and felt slightly overwhelmed
 - **Geoscientists** starting a new seismic interpretation project who want a principled starting point for attribute selection
-- **AASPI students** learning which attributes are appropriate for which geologic problems
-- **ML practitioners** building multi-attribute seismic classification workflows who need a defensible, non-redundant input set
 
-No attribute expertise required, and hopefully this will get you curious to try new ones! Every recommendation includes a plain-language explanation of what the attribute measures and why it is relevant to your situation.
+No attribute expertise required. Every recommendation includes a plain-language explanation of what the attribute measures and why it is relevant to your situation.
 
 ---
 
@@ -126,7 +122,7 @@ No attribute expertise required, and hopefully this will get you curious to try 
 
 Visit the link above. The tool runs entirely in your browser — nothing is stored or transmitted anywhere.
 
-Work through four short sections of questions (~5 minutes). At the end you receive a preprocessing checklist followed by a three-tiered attribute recommendation with:
+Work through three short sections of questions (~5 minutes). At the end you receive a preprocessing checklist followed by a three-tiered attribute recommendation with:
 - Plain-language descriptions of what each attribute measures
 - Specific notes on why each attribute is relevant to your target
 - Warnings where data quality may limit an attribute's reliability
@@ -154,11 +150,6 @@ This tool is designed to be used alongside the **AASPI Seismic ML Uncertainty As
 ## This is a living document
 
 Version 1.0 covers the most commonly used attribute categories. Planned additions include:
-
-- AVO gradient and intercept attributes
-- Azimuthal anisotropy attributes for fracture characterization
-- Structure-oriented filtering guidance
-- Spectral balancing recommendations
 - Additional geologic settings and play types
 
 If you find a target or data situation the tool handles poorly, have suggestions for attributes to add, or want to contribute geologic use cases — please get in touch.
