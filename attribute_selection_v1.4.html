@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seismic Attribute Selection Guide · AASPI v1.4</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5F1EB;
+  --paper: #FDFAF6;
+  --ink: #1A1714;
+  --ink-mid: #4A4540;
+  --ink-light: #8A847E;
+  --ink-faint: #C8C2BA;
+  --crimson: #990000;
+  --crimson-light: #F5E0E0;
+  --crimson-mid: #CC2222;
+  --teal: #2A6B6B;
+  --teal-light: #D4ECEC;
+  --amber: #C4840A;
+  --amber-light: #F5EDD4;
+  --green: #3A6B3A;
+  --green-light: #D8ECD8;
+  --blue: #1A5FA0;
+  --blue-light: #E0EEF8;
+  --purple: #5A3A8A;
+  --purple-light: #EDE8F5;
+  --border: rgba(26,23,20,0.10);
+  --border-strong: rgba(26,23,20,0.20);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6}
+
+/* ── Landing ── */
+.landing{min-height:100vh;background:var(--ink);display:flex;flex-direction:column}
+.landing-inner{max-width:820px;margin:0 auto;padding:3rem 3rem 4rem;flex:1}
+.landing-top-cta{display:flex;justify-content:flex-end;margin-bottom:1.25rem}
+.cta-small{padding:8px 18px;font-size:12px;font-weight:500;border-radius:6px;border:none;background:rgba(153,0,0,0.4);color:rgba(245,241,235,0.7);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.cta-small:hover{background:var(--crimson);color:var(--cream)}
+.landing-kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--crimson-mid);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
+.landing-kicker::after{content:'';display:block;height:1px;width:48px;background:var(--crimson-mid);opacity:0.4}
+.landing-headline{font-family:'DM Serif Display',serif;font-size:clamp(30px,4.5vw,50px);color:var(--cream);line-height:1.1;margin-bottom:0.9rem;letter-spacing:-0.01em}
+.landing-headline em{font-style:italic;color:var(--crimson-mid)}
+.landing-subhead{font-family:'DM Serif Display',serif;font-size:16px;color:rgba(245,241,235,0.45);font-style:italic;margin-bottom:2rem;line-height:1.5}
+.landing-divider{height:1px;background:rgba(255,255,255,0.07);margin:2rem 0}
+.landing-body{font-size:14px;color:rgba(245,241,235,0.7);line-height:1.85;margin-bottom:1.25rem}
+.landing-body strong{color:var(--cream);font-weight:500}
+.landing-body em{color:var(--crimson-mid);font-style:italic}
+.landing-callout{border-left:3px solid var(--crimson);padding:0.9rem 1.25rem;margin:1.75rem 0;background:rgba(153,0,0,0.08);border-radius:0 8px 8px 0}
+.landing-callout p{font-family:'DM Serif Display',serif;font-size:17px;color:var(--cream);line-height:1.5;font-style:italic}
+.landing-callout span{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(245,241,235,0.35);font-style:normal;display:block;margin-top:5px}
+.landing-about{display:flex;gap:1.25rem;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1.25rem;margin:1.75rem 0}
+.landing-avatar{width:46px;height:46px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:17px;color:var(--cream);flex-shrink:0}
+.landing-about-text{font-size:12px;color:rgba(245,241,235,0.58);line-height:1.7}
+.landing-about-text strong{color:var(--cream);font-weight:500}
+.landing-about-text a{color:var(--crimson-mid);text-decoration:none;border-bottom:1px solid rgba(204,34,34,0.28)}
+.landing-cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:2rem}
+.cta-primary{padding:12px 28px;font-size:14px;font-weight:500;border-radius:7px;border:none;background:var(--crimson);color:var(--cream);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.cta-primary:hover{background:var(--crimson-mid);transform:translateY(-1px)}
+.cta-secondary{font-size:12px;color:rgba(245,241,235,0.32);font-family:'DM Mono',monospace}
+.landing-note{font-size:11px;color:rgba(245,241,235,0.22);line-height:1.6;margin-top:1.25rem}
+.landing-footer{border-top:1px solid rgba(255,255,255,0.06);padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.landing-footer-left{font-family:'DM Serif Display',serif;font-size:12px;color:rgba(245,241,235,0.22)}
+.landing-footer-right{font-size:11px;color:rgba(245,241,235,0.15)}
+.version-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(153,0,0,0.18);color:var(--crimson-mid);border:1px solid rgba(153,0,0,0.28);margin-left:7px;vertical-align:middle}
+
+/* ── Tool layout ── */
+.tool-wrap{max-width:820px;margin:0 auto;padding:2.5rem 2rem 4rem}
+.progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:2.5rem}
+.progress-track{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:3px;background:var(--crimson);border-radius:2px;transition:width 0.4s ease}
+.progress-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-light);white-space:nowrap}
+.sec-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--crimson);margin-bottom:7px}
+.sec-heading{font-family:'DM Serif Display',serif;font-size:26px;line-height:1.2;color:var(--ink);margin-bottom:8px}
+.sec-intro{font-size:14px;color:var(--ink-mid);line-height:1.7;margin-bottom:2rem;padding-left:1rem;border-left:2px solid var(--crimson-light)}
+
+/* ── Questions ── */
+.q-block{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.q-block:last-of-type{border-bottom:none}
+.q-number{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-faint);margin-bottom:5px}
+.q-label{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:5px;line-height:1.5}
+.q-hint{font-size:12px;color:var(--ink-mid);font-style:italic;line-height:1.6;margin-bottom:10px;padding:7px 11px;background:var(--cream);border-radius:0 5px 5px 0;border-left:3px solid var(--amber-light)}
+.chip-grid{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:13px;padding:8px 14px;border-radius:7px;border:1.5px solid var(--border);background:var(--paper);color:var(--ink-mid);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;line-height:1.3}
+.chip:hover{border-color:var(--border-strong);background:var(--cream);color:var(--ink)}
+.chip.sel{background:var(--crimson-light);border-color:var(--crimson);color:var(--crimson)}
+.chip.multi-sel{background:var(--crimson-light);border-color:var(--crimson);color:var(--crimson)}
+.chip-note{font-size:11px;color:var(--ink-light);margin-top:6px;font-style:italic}
+
+/* ── Nav ── */
+.nav-row{display:flex;gap:10px;margin-top:2.5rem;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border)}
+.btn{padding:9px 20px;font-size:13px;font-weight:500;border-radius:7px;border:1.5px solid var(--border-strong);background:var(--paper);color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.btn:hover{background:var(--cream)}
+.btn.primary{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.btn.primary:hover{background:var(--ink-mid)}
+.btn:disabled{opacity:0.35;cursor:not-allowed}
+.nav-hint{font-size:12px;color:var(--ink-light)}
+
+/* ── Results ── */
+.results-heading{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);margin-bottom:6px}
+.results-sub{font-size:14px;color:var(--ink-mid);line-height:1.7;margin-bottom:2rem}
+.results-divider{height:1px;background:var(--border);margin:2rem 0}
+.tier-heading{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);margin-bottom:4px}
+.tier-sub{font-size:13px;color:var(--ink-mid);margin-bottom:1.25rem;line-height:1.6}
+.attr-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+.attr-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--paper)}
+.attr-card-header{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--cream)}
+.attr-cat-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.attr-name{font-size:14px;font-weight:600;color:var(--ink);flex:1}
+.attr-cat-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--ink-light)}
+.attr-body{padding:10px 14px}
+.attr-measures{font-size:13px;color:var(--ink-mid);line-height:1.6;margin-bottom:6px}
+.attr-why{font-size:12px;color:var(--green);background:var(--green-light);border-radius:5px;padding:6px 10px;line-height:1.6;margin-bottom:6px}
+.attr-warning{font-size:12px;color:var(--amber);background:var(--amber-light);border-radius:5px;padding:6px 10px;line-height:1.6;margin-bottom:6px}
+.attr-aaspi{font-size:11px;color:var(--crimson);background:var(--crimson-light);border-radius:5px;padding:5px 9px;font-family:'DM Mono',monospace;line-height:1.5}
+.aaspi-section{margin-top:2rem;padding:1.25rem;background:var(--ink);border-radius:12px}
+.aaspi-section-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--cream);margin-bottom:6px}
+.aaspi-section-body{font-size:13px;color:rgba(245,241,235,0.62);line-height:1.7;margin-bottom:1rem}
+.aaspi-section-body a{color:var(--crimson-mid);text-decoration:none;border-bottom:1px solid rgba(204,34,34,0.3)}
+.aaspi-attr-list{display:flex;flex-wrap:wrap;gap:7px}
+.aaspi-chip{font-size:11px;font-family:'DM Mono',monospace;padding:4px 10px;border-radius:4px;background:rgba(153,0,0,0.15);color:var(--crimson-mid);border:1px solid rgba(153,0,0,0.25)}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.caveat-box{background:var(--amber-light);border:1px solid var(--amber);border-radius:10px;padding:14px 16px;margin-bottom:1.5rem;font-size:13px;color:var(--amber);line-height:1.7}
+.caveat-box strong{color:var(--amber)}
+
+/* Preprocessing steps */
+.prep-section{margin-bottom:2rem}
+.prep-heading{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);margin-bottom:4px}
+.prep-sub{font-size:13px;color:var(--ink-mid);margin-bottom:1rem;line-height:1.6}
+.prep-card{border-radius:10px;margin-bottom:10px;overflow:hidden;border:1px solid var(--border)}
+.prep-card.urgent{border-color:var(--crimson)}
+.prep-card-header{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.prep-card.urgent .prep-card-header{background:var(--crimson-light)}
+.prep-card:not(.urgent) .prep-card-header{background:var(--cream)}
+.prep-step-label{font-size:13px;font-weight:600;flex:1}
+.prep-card.urgent .prep-step-label{color:var(--crimson)}
+.prep-priority{font-family:'DM Mono',monospace;font-size:10px;padding:2px 7px;border-radius:3px}
+.prep-card.urgent .prep-priority{background:var(--crimson-light);color:var(--crimson);border:1px solid var(--crimson)}
+.prep-card:not(.urgent) .prep-priority{background:var(--amber-light);color:var(--amber);border:1px solid var(--amber)}
+.prep-body{padding:10px 14px;font-size:13px;line-height:1.65;color:var(--ink-mid)}
+.prep-aaspi{margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;color:var(--crimson);background:var(--crimson-light);border-radius:5px;padding:5px 9px;line-height:1.5}
+
+/* Category colors */
+.cat-amplitude{background:#3A6B3A}
+.cat-phase{background:#1A5FA0}
+.cat-frequency{background:#854F0B}
+.cat-geometric{background:#534AB7}
+.cat-texture{background:#0F6E56}
+.cat-avo{background:#990000}
+.cat-impedance{background:#5F5E5A}
+
+/* Print */
+@media print{
+  .landing{display:none!important}
+  .nav-row,.result-actions,.progress-wrap{display:none!important}
+  body{background:white;font-size:10pt}
+  .tool-wrap{max-width:none;padding:1cm}
+  .attr-card{break-inside:avoid}
+  @page{margin:1.5cm}
+}
+@media(max-width:600px){
+  .tool-wrap{padding:1.25rem}
+  .landing-inner{padding:2rem 1.5rem 3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="landing-page">
+<div class="landing">
+  <div class="landing-inner">
+    <div class="landing-top-cta">
+      <button class="cta-small" onclick="startTool()">Go straight to the tool -></button>
+    </div>
+    <div class="landing-kicker">AASPI - University of Oklahoma</div>
+    <h1 class="landing-headline">Which seismic attributes<br><em>should you actually use?</em></h1>
+    <p class="landing-subhead">A guided attribute selection tool for multi-attribute seismic interpretation and ML workflows</p>
+    <div class="landing-divider"></div>
+    <p class="landing-body">
+      Walk into any seismic interpretation project and you will find one of two problems.
+      Either someone has computed three attributes — envelope, coherence, and curvature — because
+      those are the ones they always compute. Or someone has computed forty-seven attributes
+      because the software let them, and now they are trying to figure out what to do with all of them.
+    </p>
+    <p class="landing-body">
+      <strong>Neither approach is thoughtful. </strong> The right attribute set for
+      mapping deepwater channels is not the same as the right set for carbonate reef detection or
+      basement fault mapping. Your data quality, your target depth, whether you have pre-stack data,
+      and whether you are feeding the result into machine learning — all of these change what you should compute.
+    </p>
+    <div class="landing-callout">
+      <p>"Start with the geology. Let the geology tell you which physical properties matter. Then find the attributes that measure those properties."</p>
+      <span>- the right order of operations</span>
+    </div>
+    <p class="landing-body">
+      This tool was developed at <strong>AASPI (Attribute Assisted Seismic Processing and Interpretation)
+      at the University of Oklahoma</strong>. It asks you three sets of questions — about your geologic target,
+      your data, and your workflow — and recommends a tiered starting attribute set with plain-language
+      explanations of what each attribute measures and why it is relevant to your situation.
+    </p>
+    <p class="landing-body">
+      The recommendations work with any seismic interpretation software. Where AASPI has specific programs
+      that implement an attribute, those are noted. AASPI attributes that are not widely available elsewhere
+      are flagged separately — because knowing they exist is the first step to knowing what you are missing.
+    </p>
+    <div class="landing-divider"></div>
+    <div class="landing-about">
+      <div class="landing-avatar">HB</div>
+      <div class="landing-about-text">
+        <strong>Dr. Heather Bedle</strong> — Associate Professor, University of Oklahoma<br>
+        AASPI (Attribute Assisted Seismic Processing and Interpretation) — School of Geosciences<br><br>
+        <strong>David Lubo</strong> &nbsp;·&nbsp; <strong>April Moreno Ward</strong> — co-authors, AASPI, University of Oklahoma<br><br>
+        This tool is a living document. If you find a target or data situation it doesn't handle well,
+        or have suggestions for additional attributes to include — please get in touch.<br><br>
+        <a href="mailto:hbedle@ou.edu">hbedle@ou.edu</a> &nbsp;·&nbsp;
+        <a href="https://www.ou.edu/mcee/labs/aaspi" target="_blank">aaspi.ou.edu</a>
+      </div>
+    </div>
+    <div class="landing-cta-row">
+      <button class="cta-primary" onclick="startTool()">Get my attribute recommendations -></button>
+      <span class="cta-secondary">~5 min · 3 sections · printable output</span>
+    </div>
+    <p class="landing-note">
+      <strong>Version 1.4 - 2025.</strong> Spectral attribute library updated from official AASPI documentation — spec_cwt, spec_cmp, spec_max_entropy, spec_vmd, thin_bed_decomposition, spectral_probe, and DQ workflow attributes (DQ, Theta PX, Isochron, StickOgram) updated from source docs and pamphlet. Co-authors: David Lubo and April Moreno Ward (AASPI, OU). Companion to the AASPI Seismic ML Uncertainty Assessment tool.
+      Your answers are never stored or transmitted.
+    </p>
+  </div>
+  <div class="landing-footer">
+    <div class="landing-footer-left">AASPI - University of Oklahoma <span class="version-badge">v1.4</span></div>
+    <div class="landing-footer-right">Seismic Attribute Selection Guide</div>
+  </div>
+</div>
+</div>
+
+<!-- TOOL -->
+<div id="tool-page" style="display:none">
+<div class="tool-wrap">
+  <div id="tool-content"></div>
+</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// QUESTIONS
+// ══════════════════════════════════════════════
+const SECTIONS = [
+{
+  id:"s_pre", eyebrow:"Section 1 of 3", heading:"Your data and preprocessing",
+  intro:"Before recommending a single attribute, the tool needs to understand what you are working with and what has been done to it. Data quality and preprocessing status are not administrative details — they determine which attributes will produce meaningful results and which will produce convincing-looking noise. Answer these honestly. There is no wrong answer, only answers that lead to a more or less useful recommendation.",
+  questions:[
+    {id:"data_dim", label:"What type of seismic data are you working with?", multi:false,
+     hint:"Most attribute methods were designed and tested on dense 3D volumes acquired with modern wide-azimuth geometry. Two things tend to degrade attribute quality fast: sparse spatial sampling (2D or coarse 3D) — geometric attributes lose most of their value — and legacy acquisition geometry with narrow azimuth or irregular sampling, where footprint patterns are more severe and harder to suppress. If you are working with pre-mid-1990s legacy 3D data, expect denser-than-2D sampling but coarser than modern surveys, often with visible acquisition striping that limits geometric attributes.",
+     opts:[
+       {v:"3d_modern", t:"Modern 3D — dense, wide-azimuth or full-azimuth acquisition (post ~1995)"},
+       {v:"3d_legacy", t:"Legacy 3D — narrow azimuth, sparser geometry, or older acquisition (pre ~1995)"},
+       {v:"3d_limited", t:"3D but limited in some dimension — narrow offset, sparse crossline, or OBC/OBN with gaps"},
+       {v:"2d_grid", t:"2D line grid — multiple intersecting lines"},
+       {v:"2d_sparse", t:"Sparse 2D or single lines — minimal spatial coverage"}
+     ]
+    },
+    {id:"amplitude_pres", label:"Is your data processed with relative amplitude preservation?", multi:false,
+     hint:"This single processing decision determines whether roughly half the attributes in this tool are meaningful. Short-gate AGC applied trace-by-trace destroys lateral amplitude variation — the exact thing envelope, RMS, and sweetness are measuring. If AGC was applied, these attributes will map the AGC gain function, not geology. Read the processing report if you have it. If you do not have it, look at a time slice of envelope amplitude: if the lateral variation is smooth and featureless with no obvious amplitude anomalies, AGC was probably applied.",
+     opts:[
+       {v:"yes", t:"Yes — relative amplitude preserving processing confirmed"},
+       {v:"probably", t:"Probably — but I haven't verified the processing report"},
+       {v:"no", t:"No — AGC or trace equalization was applied"},
+       {v:"unknown", t:"Unknown — I don't have the processing report"}
+     ]
+    },
+    {id:"prestack", label:"Do you have pre-stack data available — gathers or partial angle stacks?", multi:false,
+     hint:"Pre-stack data unlocks the AASPI DQ trace and Theta PX — which together provide relative porosity and hydrocarbon pore volume estimates at every seismic sample, across all AVO classes, without needing to know the petrophysics or wavelet beforehand. This is a genuinely different class of information from anything available on the stack. If you have near and far partial stacks and amplitude is preserved, use them. If your gathers are a mess of residual NMO or multiples, no AVO attribute will save you — fix the gathers first.",
+     opts:[
+       {v:"full_gathers", t:"Yes — full offset or angle gathers, well-conditioned"},
+       {v:"partial_stacks", t:"Yes — near and far partial stacks available"},
+       {v:"no", t:"No — post-stack data only"},
+       {v:"poor_quality", t:"Gathers exist but are poorly conditioned — residual NMO or multiples present"}
+     ]
+    },
+    {id:"snr", label:"How would you describe the signal-to-noise ratio in your target interval?", multi:false,
+     hint:"Low S/N does not stop attributes from producing something that looks interpretable — it means they are measuring noise with conviction. Coherence maps noise discontinuities as false faults. Curvature maps noise variability as structural features. ML learns the noise pattern as a facies. The AASPI Disorder attribute is the honest way to map where your data is actually reliable versus where you are interpreting randomness — consider including it as a quality-weighting layer.",
+     opts:[
+       {v:"high", t:"High — reflections are crisp, coherent events clearly defined"},
+       {v:"good", t:"Good — coherent with manageable background noise"},
+       {v:"fair", t:"Fair — coherent events visible but competing with noise"},
+       {v:"low", t:"Low — noisy, events poorly defined or discontinuous"}
+     ]
+    },
+    {id:"spectral_balance", label:"Has spectral balancing been applied to your data?", multi:false,
+     hint:"Spectral balancing flattens the frequency spectrum so that tuning effects reflect bed thickness and geology, not the shape of the source wavelet. Without it, spectral decomposition mostly maps the wavelet — not beds. It also improves dip estimation and coherence by making the waveform more consistent with depth. It does not modify phase. Spiking deconvolution during processing accomplishes a similar result. In AASPI: <em>spectral_balance</em> program, survey-averaged mode as the default.",
+     opts:[
+       {v:"yes", t:"Yes — spectral balancing applied and verified"},
+       {v:"yes_decon", t:"Yes — spiking deconvolution applied during processing (equivalent effect)"},
+       {v:"no", t:"No — data is not spectrally balanced"},
+       {v:"unknown", t:"Unknown — I don't know the processing history"}
+     ]
+    },
+    {id:"dip_computed", label:"Have you computed structural dip volumes (inline and crossline dip) for your data?", multi:false,
+     hint:"This is the single most consequential preprocessing step for geometric attributes, and the most commonly skipped. Coherence, curvature, aberrancy, GLCM texture, nonparallelism, and structure-oriented filtering ALL require accurate structural dip as input — not as a convenience, but as a fundamental requirement. Without dip guidance, the analysis window cuts vertically through the data, slicing across multiple geological layers at the same time and averaging them together. The result looks like an attribute. It is not. It is a vertical average of geology from different stratigraphic levels. In AASPI: <em>dip3d</em> must run before any geometric attribute computation.",
+     opts:[
+       {v:"yes", t:"Yes — dip computed and quality-checked on time slices"},
+       {v:"yes_uncheck", t:"Yes — dip computed but I haven't QC'd it carefully"},
+       {v:"no_plan", t:"Not yet — but I plan to compute dip before geometric attributes"},
+       {v:"no", t:"No — I was planning to compute geometric attributes without dip guidance"},
+       {v:"unknown", t:"Not sure — I don't know whether my software uses dip-guided computation"}
+     ]
+    },
+    {id:"sof_done", label:"Has structure-oriented filtering (SOF) been applied?", multi:false,
+     hint:"SOF smooths the data along reflectors rather than vertically, improving S/N while preserving geologic edges and discontinuities. Think of it as a smart smoothing filter that follows the geology instead of cutting across it. The improvement in coherence and curvature quality after SOF is often dramatic — particularly in noisy data. Run it after dip computation, before geometric attribute extraction. In AASPI: <em>sof3d</em>. Do not apply SOF to data you intend to use for amplitude-sensitive attributes — it will alter the waveform.",
+     opts:[
+       {v:"yes", t:"Yes — structure-oriented filtering applied before geometric attributes"},
+       {v:"plan", t:"Not yet — but I plan to apply it before geometric attributes"},
+       {v:"no", t:"No — computing geometric attributes from original or conventionally filtered data"},
+       {v:"unknown", t:"Not sure what preprocessing has been applied"}
+     ]
+    },
+    {id:"footprint_treated", label:"Has acquisition footprint been checked and addressed?", multi:false,
+     hint:"Footprint looks like regular striping on time slices, aligned with the shot or receiver line direction. It is not geology — it is the geometry of the recording equipment. The problem is that every geometric attribute will reproduce it faithfully: coherence maps it as a grid of false faults, curvature maps it as structural lineaments, and ML learns it as a distinct facies class. It is one of the most reliable ways to produce a result that looks interesting and means nothing. How to check: display a time slice in the target interval and compare it to a plot of the shot and receiver geometry. If you see the same striping, you have footprint. In AASPI: kx-ky footprint workflow or CWT-based footprint workflow for legacy data with complex geometry.",
+     opts:[
+       {v:"yes_none", t:"No footprint — verified by checking time slices against acquisition geometry"},
+       {v:"yes_treated", t:"Footprint was present and has been suppressed"},
+       {v:"minor", t:"Minor footprint — present but unlikely to dominate attribute results"},
+       {v:"no_significant", t:"Significant footprint present — not yet addressed"},
+       {v:"unknown", t:"Unknown — I have not checked for footprint"}
+     ]
+    },
+    {id:"coherent_noise", label:"Does your data have coherent noise — ground roll, multiples, or migration artifacts?", multi:false,
+     hint:"Steeply dipping coherent noise is particularly damaging for geometric attributes because it crosses reflectors at a high angle — exactly the geometry that coherence and curvature are designed to detect as a discontinuity. Ground roll, water-bottom multiples, and migration operator aliasing all create false dipping events that coherence maps as faults and curvature maps as structural anomalies. The faults will look real. They are not. Check by examining coherence results in areas where the geology is simple — if you see linear features aligned with the dip direction of your noise, the noise is winning. In AASPI: <em>coh_noise_suppression_workflow</em> for ground roll; <em>filter_spectral_components</em> for migration operator aliasing.",
+     opts:[
+       {v:"none", t:"No significant coherent noise in the target interval"},
+       {v:"minor", t:"Minor coherent noise — present but unlikely to significantly affect attributes"},
+       {v:"significant", t:"Significant coherent noise — multiples, ground roll, or migration artifacts in target zone"},
+       {v:"unknown", t:"Unknown — I have not specifically checked"}
+     ]
+    }
+  ]
+},
+{
+  id:"s0", eyebrow:"Section 2 of 3", heading:"Your geologic target",
+  intro:"What are you trying to find or characterize? Your answers here drive the entire recommendation. The right order of operations is: start with the geology, let the geology tell you which physical properties matter, then find the attributes that measure those properties. The wrong order is: open the attribute menu, compute everything that looks relevant, and see what sticks. The second approach is very common. This tool is designed to help you avoid it.",
+  questions:[
+    {id:"primary_target", label:"What is your primary interpretation target?", multi:false,
+     hint:"This is the most important question in the tool — it determines the entire recommendation. Pick the thing you are most fundamentally trying to image or characterize. If you are mapping deepwater channels to find reservoir, pick <em>channels</em> — not <em>seismic facies</em>, even though channels are a type of facies. If you are looking for a bright spot that might be gas, pick <em>DHI</em>. If you need to map all the facies in a carbonate section, pick <em>seismic facies</em>. The secondary targets question handles everything else. When in doubt: what would you call this in a talk title?",
+     groups:[
+       {label:"Stratigraphy & Depositional Systems", opts:[
+         {v:"facies", t:"Seismic facies", sub:"Mapping distinct waveform character patterns tied to depositional environments"},
+         {v:"channels", t:"Stratigraphic channels", sub:"Fluvial, deltaic, turbidite, or deepwater channel fills and margins"},
+         {v:"deepwater_fans", t:"Deepwater lobes and fans", sub:"Sheet sands, lobe complexes, and distributary systems"},
+         {v:"thin_beds", t:"Thin beds and stratigraphic pinchouts", sub:"Targets below or near seismic tuning thickness"}
+       ]},
+       {label:"Carbonates & Reefs", opts:[
+         {v:"reefs", t:"Carbonate reefs, buildups, and platforms", sub:"Pinnacle reefs, barrier reefs, mounds, or platform margins"}
+       ]},
+       {label:"Structural & Fault Systems", opts:[
+         {v:"faults", t:"Faults and fractures", sub:"Structural discontinuities, fault networks, and fracture corridors"},
+         {v:"basement", t:"Basement and deep crustal structure", sub:"Crystalline basement, deep reflectors, or sub-basement features"},
+         {v:"unconventional", t:"Unconventional reservoirs", sub:"Shale plays, tight sands, or natural fracture characterization"}
+       ]},
+       {label:"Fluids & Direct Indicators", opts:[
+         {v:"dhi", t:"DHI / fluid indicators", sub:"Bright spots, flat spots, polarity reversals, or fluid-related amplitude anomalies"},
+         {v:"gas_chimney", t:"Gas chimneys and fluid migration pathways", sub:"Vertical seismic anomalies, pockmarks, or chimney structures"}
+       ]},
+       {label:"Chaotic & Complex Bodies", opts:[
+         {v:"mcs", t:"Mass transport complexes and chaotic geobodies", sub:"Submarine landslides, debrites, or chaotic/transparent facies"},
+         {v:"salt", t:"Salt bodies and sub-salt structure", sub:"Diapirs, canopies, salt flanks, or sub-salt imaging"},
+         {v:"volcanics", t:"Volcanic and igneous complexes", sub:"Intrusive sills, lava flows, volcanic mounds, or extrusive complexes"}
+       ]},
+       {label:"Hazards & Near-Surface", opts:[
+         {v:"shallow_hazard", t:"Shallow hazards", sub:"Free gas, overpressure zones, submarine slides, or shallow water flows"}
+       ]}
+     ]
+    },
+    {id:"secondary_targets", label:"Are any of these also relevant? (select all that apply)", multi:true,
+     hint:"Secondary targets expand the recommendation beyond the core set. Be selective — only add things that represent a real interpretive question in your project. 'Fractures' means you need to actually characterize fracture networks, not just that fractures might exist somewhere. If everything is a secondary target, none of them are.",
+     opts:[
+       {v:"fractures", t:"Natural fractures or fracture characterization"},
+       {v:"porosity", t:"Porosity or reservoir quality estimation"},
+       {v:"fluids", t:"Fluid discrimination or fluid contacts"},
+       {v:"thickness", t:"Layer thickness or time-thickness mapping"},
+       {v:"unconformity", t:"Unconformities or stratigraphic terminations"},
+       {v:"deep_structure", t:"Deep structure or sub-salt imaging"},
+       {v:"geomechanics", t:"Stress, compaction, or geomechanical properties"},
+       {v:"salt_flanks", t:"Salt flank geometry or salt-sediment contact"},
+       {v:"none", t:"None — focusing on primary target only"}
+     ]
+    },
+    {id:"depositional", label:"What is the dominant depositional or geologic setting?", multi:false,
+     hint:"This is a separate question from your target — it describes the <em>context</em> your target lives in, not the target itself. A carbonate pinnacle reef in a shallow marine setting is still a carbonate setting. A turbidite channel in a salt-withdrawal basin is a deepwater setting. A shale play in a structurally complex thrust belt is unconventional. <strong>Why does this matter?</strong> The setting determines which geometric and stratigraphic attributes are most diagnostic. Deepwater settings emphasize convergence and spectral decomp to see clinoforms and channel architecture. Salt-dominated settings need chaos and volumetric curvature. Carbonate settings respond strongly to shape index and amplitude curvature. If your target straddles two settings, pick the one that dominates the structural and stratigraphic context of the section you are working on.",
+     opts:[
+       {v:"deepwater", t:"Deepwater — turbidites, fans, channels, or MTCs in a basinal setting"},
+       {v:"shallow_clastic", t:"Shallow marine or fluvial — deltaic, shelf, or continental clastics"},
+       {v:"carbonate", t:"Carbonate — reef, platform, ramp, or pelagic (any water depth)"},
+       {v:"structurally_complex", t:"Structurally complex — thrust belts, inverted basins, or sub-salt"},
+       {v:"salt_dominated", t:"Salt-dominated — diapirs, canopies, or salt-withdrawal minibasins"},
+       {v:"unconventional_shale", t:"Unconventional — shale plays, tight sands, or fractured basement"},
+       {v:"volcanic_setting", t:"Volcanic or igneous — sills, flows, or intrusive complexes"},
+       {v:"mixed", t:"Mixed or genuinely uncertain — more than one setting applies equally"}
+     ]
+    },
+    {id:"resolution_context", label:"How does your target relate to seismic resolution?", multi:false,
+     hint:"Tuning thickness is approximately a quarter wavelength — at 40 Hz dominant frequency and 3000 m/s velocity, that is about 19 meters. Beds thicker than tuning are resolved as individual reflectors. Beds at or near tuning show interference effects — amplitude brightens, peak and trough merge. Below tuning, the top and base reflectors interfere so strongly that you cannot separate them on the broadband stack; spectral decomposition can recover thickness information by finding the frequency that resonates with the bed. If you have not estimated your tuning thickness, this is worth doing before computing any frequency-sensitive attributes — it takes about five minutes and changes what you look for.",
+     opts:[
+       {v:"above_tuning", t:"Well above tuning — target is clearly resolved as a distinct reflector package"},
+       {v:"near_tuning", t:"Near tuning — at or around a quarter wavelength thick"},
+       {v:"below_tuning", t:"Below tuning — thin bed interpretation needed"},
+       {v:"unknown", t:"I have not estimated tuning thickness for this target"}
+     ]
+    }
+  ]
+},
+{
+  id:"s2", eyebrow:"Section 3 of 3", heading:"Your workflow",
+  intro:"How you plan to use the attributes changes which ones to prioritize. Attributes optimized for direct visual interpretation have different requirements from attributes designed as ML input. Some attributes are excellent for one and poor for the other — instantaneous phase is visually interpretable but should never go into ML in its raw form, for example. If your workflow is ML-oriented, the companion Seismic ML Uncertainty Assessment tool will help you evaluate your result.",
+  questions:[
+    {id:"workflow_goal", label:"What is the primary goal of this attribute analysis?", multi:false,
+     hint:"This changes the recommendation in two ways: for ML workflows, attributes with cyclical behavior (like raw instantaneous phase) are flagged and replaced with ML-safe alternatives. Texture attributes like GLCM that are difficult to interpret visually but excellent as ML input are promoted. For visual interpretation, attributes that require software-specific rendering or that only make sense in multi-dimensional attribute space are de-emphasized.",
+     opts:[
+       {v:"visual", t:"Direct visual interpretation - I will interpret the attributes myself"},
+       {v:"ml_unsupervised", t:"Input to unsupervised ML - k-means, SOM, PCA, ICA, or similar"},
+       {v:"ml_supervised", t:"Input to supervised ML - PNN, RFC, CNN, or similar"},
+       {v:"both", t:"Both - visual interpretation and ML input"}
+     ]
+    },
+    {id:"software", label:"What software environment are you working in?", multi:false,
+     hint:"This calibrates which AASPI-specific attributes to highlight as available to you.",
+     opts:[
+       {v:"aaspi", t:"AASPI (University of Oklahoma) - full attribute library available"},
+       {v:"commercial", t:"Commercial interpretation platform - standard attribute library"},
+       {v:"mixed", t:"Mixed - using both AASPI and commercial platforms"},
+       {v:"other", t:"Other or custom workflow - open source / Python"}
+     ]
+    },
+    {id:"num_attributes", label:"How many attributes are you targeting for your final set?", multi:false,
+     hint:"For ML workflows especially, this matters a great deal. More is not better — it is usually worse. A set of 20 attributes where 15 are correlated with each other does not give ML 20 pieces of information; it gives ML 5 pieces of information with 15 duplicates adding noise. Research and experience consistently show that 5–10 well-chosen independent attributes outperform larger redundant sets. If you are not sure, start focused and expand only if the focused set leaves a specific question unanswered.",
+     opts:[
+       {v:"focused", t:"Focused — minimum defensible set for this target (roughly 5–7)"},
+       {v:"moderate", t:"Moderate — 8 to 12 well-chosen attributes"},
+       {v:"comprehensive", t:"Comprehensive — I want everything potentially relevant, I will prune later"},
+       {v:"unsure", t:"Not sure yet — I will decide after seeing the recommendations"}
+     ]
+    }
+  ]
+}
+];
+
+// ══════════════════════════════════════════════
+// ATTRIBUTE LIBRARY
+// ══════════════════════════════════════════════
+const ATTRS = {
+// Amplitude
+"envelope":         {name:"Envelope (Reflection Strength)", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Amplitude of the analytic trace — total energy of the seismic signal independent of phase. Highest values where the acoustic impedance contrast is strongest.",
+  targets:["facies","channels","reefs","dhi","mcs","thin_beds"],
+  ml_note:"Good ML input. Amplitude-preserved data required. Use cosine of instantaneous phase alongside it for waveform character.",
+  aaspi:"avt program (envelope output) — also available via instantaneous_attributes program", warning:null},
+
+"rms_amplitude":    {name:"RMS Amplitude", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Root mean square amplitude computed within a running time window. More stable than instantaneous envelope for noisy data and horizon-based extraction.",
+  targets:["facies","channels","dhi","thin_beds"],
+  ml_note:"Useful when envelope is too noisy. Window size matters — too large smooths out thin bed response.",
+  aaspi:"rms_amplitude (dedicated AASPI program under Single Trace Calculations tab — reads any seismic or attribute volume)", warning:"Only meaningful on amplitude-preserved data. Do not use if short-gate AGC was applied."},
+
+"sweetness":        {name:"Sweetness", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Envelope divided by square root of instantaneous frequency. High sweetness = high amplitude + low frequency — the classic seismic signature of a hydrocarbon-saturated porous reservoir.",
+  targets:["dhi","channels","facies"],
+  ml_note:"Excellent single-attribute DHI screen. Less useful in carbonate settings.",
+  aaspi:"avt program (sweetness output)", warning:"Requires amplitude preservation. Instantaneous frequency can be noisy — consider wavelet frequency version."},
+
+"avt":              {name:"Amplitude Volume Transform (AVT)", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Nonlinear transform: computes the RMS envelope, then applies the inverse Hilbert transform to accentuate vertical amplitude changes and edges. More sensitive to stratigraphic terminations and lateral boundaries than simple envelope. Less prone to DC drift.",
+  targets:["channels","facies","mcs","unconformity"],
+  ml_note:"Good edge-sensitive amplitude attribute for ML. Less prone to DC drift than raw envelope.",
+  aaspi:"avt (dedicated AASPI program under Single Trace Attributes tab)", warning:null},
+
+"relative_ai":      {name:"Relative Acoustic Impedance", cat:"impedance", catLabel:"Impedance", color:"#5F5E5A",
+  measures:"Trace integration scheme approximating a bandpass-filtered version of absolute impedance, valid when the seismic wavelet can be approximated by a spike and reflection coefficients are small. Converts reflectivity to a layer property — high impedance carbonates vs. low impedance sands.",
+  targets:["facies","reefs","porosity","carbonate"],
+  ml_note:"Good lithology discriminator in ML. Assumes zero-phase data and small reflection coefficients.",
+  aaspi:"relative_acoustic_impedance (dedicated AASPI program under Single Trace Calculations tab — apply spectral_balance first if data has not been carefully deconvolved)", warning:"Requires zero-phase data. Apply spectral balancing before use to better approximate a spike source wavelet. Not a substitute for full inversion."},
+
+// Phase
+"cos_phase":        {name:"Cosine of Instantaneous Phase", cat:"phase", catLabel:"Phase", color:"#1A5FA0",
+  measures:"Cosine of the instantaneous phase of the analytic trace. Wraps phase into the range -1 to +1, eliminating the -180°/+180° discontinuity. Sensitive to reflector continuity and waveform character independent of amplitude.",
+  targets:["facies","channels","mcs","basement"],
+  ml_note:"Essential for ML classification. Always use cosine of phase, never raw instantaneous phase — ML algorithms cannot handle the -180°/+180° wraparound as a meaningful distance.",
+  aaspi:"avt program (cosine of instantaneous phase output)", warning:null},
+
+"wavelet_freq":     {name:"Wavelet Frequency", cat:"phase", catLabel:"Phase / Frequency", color:"#1A5FA0",
+  measures:"Smoothed, stable estimate of instantaneous frequency using a running window RMS approach. More robust than raw instantaneous frequency in noisy data — avoids the noise spikes at zero-crossings that plague raw instantaneous frequency.",
+  targets:["facies","thin_beds","dhi","channels"],
+  ml_note:"Preferred over raw instantaneous frequency as ML input. Less susceptible to noise spikes at zero-crossings.",
+  aaspi:"avt program (wavelet_frequency output)", warning:null},
+
+"inst_freq":        {name:"Instantaneous Frequency", cat:"frequency", catLabel:"Frequency", color:"#854F0B",
+  measures:"Time derivative of instantaneous phase. Sensitive to thin bed interference, attenuation, gas-related low-frequency shadows, and abrupt waveform changes.",
+  targets:["thin_beds","dhi","facies"],
+  ml_note:"Noisy attribute — consider wavelet frequency for ML input instead. Best reserved for direct visual interpretation of gas chimneys and attenuation anomalies.",
+  aaspi:"avt program (instantaneous_frequency output)", warning:"Highly sensitive to noise. Always QC on a time slice before using. Consider wavelet_frequency as the more stable alternative."},
+
+// Geometric
+"similarity":       {name:"Similarity / Coherence", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Lateral continuity of seismic waveforms along structural dip. Low similarity = discontinuity = faults, channel edges, MTC boundaries, chaotic zones. Algorithms include eigenstructure, energy-ratio semblance, and Sobel filter similarity. Also outputs coherent energy gradient components used as input to amplitude curvature.",
+  targets:["faults","channels","mcs","facies","reefs","basement"],
+  ml_note:"Fundamental ML input for any target with lateral discontinuities. Must be computed along structure. The coherent energy gradient outputs from similarity3d feed directly into amplitude curvature computation in curvature3d.",
+  aaspi:"similarity3d (energy-ratio similarity recommended as default; eigenstructure for highest resolution; multispectral mode available for stacking bandpassed covariance matrices — also see similarity_multiple_input for multi-azimuth or multi-offset coherence)", warning:"Must be computed along structural dip — not vertically. Requires dip3d output as input. Acquisition footprint will appear as false discontinuities. Consider filter_dip_components to clean dip estimates before running if curvature artifacts are present."},
+
+"dip_magnitude":    {name:"Dip Magnitude and Dip Azimuth", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Vector dip of reflectors: magnitude (how steep, in degrees from horizontal) and azimuth (direction, ±180° clockwise from North). Fundamental structural attribute and required input for all subsequent AASPI geometric attribute programs.",
+  targets:["faults","channels","reefs","basement","structurally_complex","unconformity"],
+  ml_note:"Dip magnitude is a useful ML input for structural discrimination. Dip azimuth is cyclical (±180°) — decompose into sine and cosine components before use in ML. Never use raw dip azimuth as an ML input.",
+  aaspi:"dip3d (two algorithms: gradient structure tensor (GST) — fast, good for most applications; discrete semblance scan — slightly better lateral resolution, use for complex structure). Run filter_dip_components afterward to remove dip spikes before curvature computation.", warning:"Dip azimuth is cyclical (±180°). Never use raw azimuth in ML — decompose into sine and cosine components. For time-migrated data, dip3d uses a constant velocity conversion (crude); depth-migrated data gives more accurate dip angles for curvature."},
+
+"curvature_k1k2":   {name:"Most-Positive and Most-Negative Principal Curvature (k1, k2)", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Second derivatives of reflector structure. k1 (most positive) highlights structural crests and anticlines. k2 (most negative) highlights synclines and fault hangingwall deformation. Together they bracket faults and define fold geometry. Long-wavelength vs. short-wavelength versions controlled by the derivative operator.",
+  targets:["faults","reefs","basement","structurally_complex","fractures"],
+  ml_note:"Powerful structural discriminators for ML. Long-wavelength version for regional structural mapping; short-wavelength for subtle faults and fractures. Both can be included as independent inputs.",
+  aaspi:"curvature3d (k1 and k2 outputs — both structural and amplitude curvature modes available; fractional derivative operators control long vs. short wavelength emphasis)", warning:"Requires dip3d inline and crossline components as input — curvature is computed from the derivatives of structural dip. Run filter_dip_components before curvature3d to suppress dip spikes. SOF before dip computation significantly improves curvature quality. Acquisition footprint becomes curvature artifacts."},
+
+"shape_index":      {name:"Shape Index and Curvedness", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Shape index maps the 3D morphology of structural deformation: dome (+1), ridge (+0.5), saddle (0), valley (-0.5), bowl (-1). Curvedness measures the intensity of that deformation. Together they characterize the full structural shape at each sample.",
+  targets:["reefs","faults","basement","facies"],
+  ml_note:"Excellent for carbonate reef and collapse feature characterization in ML. Use curvedness to modulate shape index — high curvedness + shape index indicates a real structural feature rather than noise.",
+  aaspi:"curvature3d (shape_index and curvedness outputs — computed from k1 and k2 in the same run)", warning:null},
+
+"aberrancy":        {name:"Aberrancy (Flexure)", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Third derivative of structure — rate of change of curvature — detecting subtle flexures where curvature is changing but no visible fault offset exists yet. Particularly sensitive to basement-involved faults and fracture corridors that coherence and curvature miss.",
+  targets:["faults","basement","fractures","structurally_complex"],
+  ml_note:"Complements coherence and curvature for fault detection. Finds subtle structural features missed by both — particularly important for basement studies.",
+  aaspi:"curvature3d (enable 'Output total aberrancy vector' — computes 2nd derivatives of the dip vector p and q)", warning:"Computationally intensive. The high-pass derivative operator amplifies noise significantly — requires good data quality and SOF before dip computation. Very sensitive to dip spikes; always run filter_dip_components before curvature3d when computing aberrancy."},
+
+"amplitude_curv":   {name:"Amplitude Curvature (e_pos, e_neg)", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Second derivatives of coherent amplitude gradients rather than structural dip. Maps lateral changes in amplitude pattern — effective for fracture networks in carbonates and coal seams, and subtle stratigraphic amplitude edges invisible to structural curvature.",
+  targets:["fractures","reefs","channels","facies"],
+  ml_note:"Good complement to structural curvature in ML for fracture characterization. Measures different physical property — amplitude geometry rather than structural geometry.",
+  aaspi:"curvature3d (amplitude curvature mode — uses coherent energy gradient outputs from similarity3d as input rather than dip components; outputs e_pos and e_neg most-positive and most-negative amplitude curvature)", warning:"Requires coherent energy gradient outputs from similarity3d as input — run similarity3d first and save the gradient volumes. Does not require structural dip directly, but similarity3d does."},
+
+"convergence":      {name:"Reflector Convergence", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Vector measure of where and how fast reflectors converge (thin). Maps the azimuth and magnitude of bed thinning — clinoforms, progradation direction, angular unconformities, differential compaction above channels. Measures vertical changes in dip.",
+  targets:["channels","unconformity","facies","deepwater"],
+  ml_note:"Powerful stratigraphic attribute often overlooked. Directly encodes progradation geometry and clinoform orientation.",
+  aaspi:"curvature3d (reflector convergence output — computed alongside structural curvature in the same run)", warning:null},
+
+// Frequency
+"spectral_decomp":  {name:"Spectral Decomposition — Voice Components", cat:"frequency", catLabel:"Frequency", color:"#854F0B",
+  measures:"Amplitude at individual frequency components as a function of time and space. Different frequencies illuminate features of different thickness — thin beds invisible on the broadband stack appear at their tuning frequency. Outputs spectral voice volumes (amplitude at each frequency) as individual 3D volumes or combined 4D volumes.",
+  targets:["thin_beds","channels","facies","reefs","deepwater_fans"],
+  ml_note:"Individual spectral voice volumes are excellent ML inputs for thin bed and channel discrimination. Use 3–5 frequency components rather than the full suite. Run peak_freq first to identify which frequencies are well-tuned to your target before selecting ML input voices.",
+  aaspi:"spec_cwt (continuous wavelet transform using Morlet wavelets — default for most applications, outputs spec_voice_3d_cwt or 4D spec_voice_4d_cwt volumes); spec_cmp (complex matching pursuit — highest resolution, best for thin beds, same output naming convention with _cmp suffix); spec_max_entropy (maximum entropy — improved temporal resolution at low frequencies vs. STFT); spec_vmd (variational mode decomposition — decomposes into intrinsic frequency modes, good for non-stationary data). All programs output per-frequency voice volumes and optional spectral statistical summaries.", warning:"More voice components is not better for ML. Always apply spectral balancing (spectral_balance program, or use internal balancing option in spec_cwt/spec_cmp) before spectral decomposition. Run peak_freq_cwt first and use it as a guide to select frequencies that correspond to your target tuning thickness."},
+
+"peak_freq":        {name:"Peak Spectral Frequency and Spectral Statistics", cat:"frequency", catLabel:"Frequency", color:"#854F0B",
+  measures:"Statistical summaries of the time-frequency spectrum at each sample: peak frequency (peak_freq — the dominant tuning frequency), spectral bandwidth, range-trimmed mean magnitude, peak magnitude above average, mean frequency, spectral slope, spectral roughness (deviation from linear trend), spectral skewness, and effective kurtosis. These compact summaries describe spectral character without requiring the full voice volume suite.",
+  targets:["thin_beds","dhi","facies","channels"],
+  ml_note:"Compact ML inputs when the full spectral voice suite would be too many volumes. Peak_freq + bandwidth together describe the dominant scale and spectral shape. Spectral roughness is sensitive to rapid impedance changes and is useful for karst and fracture detection. Run peak_freq before selecting voice frequencies for ML.",
+  aaspi:"spec_cwt (select 'want peak attributes' checkbox — outputs peak_mag_cwt and peak_freq_cwt volumes) or spec_cmp (outputs peak_mag_cmp, peak_freq_cmp, bandwidth_cmp, mean_freq_cmp, slope_cmp, roughness_cmp, skewness_cmp, effective_kurtosis_cmp as separate volumes)", warning:null},
+
+"tkv":              {name:"Teager-Kaiser Energy / Variation (TKE / TKV)", cat:"frequency", catLabel:"Frequency / Energy", color:"#854F0B",
+  measures:"Physics-based local energy estimate using a mass-spring model — more sensitive to combined amplitude and frequency changes than simple RMS. Two outputs: Teager-Kaiser energy (TKE, amplitude-dependent) and Teager-Kaiser variation (TKV, zero-mean, can be input to coherence). Particularly effective applied to individual spectral voice components from spec_cwt.",
+  targets:["dhi","channels","facies","thin_beds"],
+  ml_note:"TKV is the more useful ML input — zero mean makes it numerically better behaved. Compute coherence (similarity3d) from TKV voice components rather than amplitude voice components for improved fault and channel edge detection in noisy data.",
+  aaspi:"teager_kaiser_energy (dedicated AASPI program under Single Trace Attributes tab — accepts seismic amplitude, SOF-filtered amplitude, or spectral voice component inputs; outputs teager_kaiser_energy and teager_kaiser_variation volumes)", warning:"Lower dominant frequency than original data. Best applied to spectrally balanced data or individual CWT voice components rather than broadband data."},
+
+// Texture
+"glcm":             {name:"GLCM Texture Attributes", cat:"texture", catLabel:"Texture", color:"#0F6E56",
+  measures:"Gray Level Co-Occurrence Matrix statistics computed along structural dip within a dip-guided window: contrast, dissimilarity, homogeneity, energy, entropy, mean, variance, and correlation. Quantifies seismic texture — how similar or different adjacent amplitude samples are within the analysis window. Outputs are inherently fuzzy.",
+  targets:["facies","mcs","channels","reefs"],
+  ml_note:"Designed as ML input — not for direct visual interpretation. Entropy and homogeneity are the most commonly useful pair. Can be applied to any input volume (amplitude, coherence, spectral voice components) not just seismic amplitude.",
+  aaspi:"glcm3d (under Geometric Attributes tab — requires dip3d inline and crossline dip components as input; can accept seismic amplitude, acoustic impedance, coherence, or spectral voice components as the analysis volume)", warning:"Output is inherently fuzzy — not useful for direct picking or visual interpretation. Designed as ML input only. Requires structural dip input from dip3d."},
+
+"nonparallelism":   {name:"Nonparallelism (Dip Deviation, Gradient Deviation, Total Deviation)", cat:"texture", catLabel:"Texture", color:"#0F6E56",
+  measures:"Quantifies how much reflector dips and amplitude gradients deviate from the local average dip and gradient. Three named outputs: dip_deviation (statistical measure of dip variability), gradient_deviation (amplitude gradient variability), and total_deviation (combined). High values indicate chaotic, non-conformal reflections.",
+  targets:["mcs","facies","reefs","channels"],
+  ml_note:"Powerful ML discriminator for chaotic vs. conformal facies. Often outperforms coherence at MTC boundaries. Use total_deviation as the primary ML input; dip_deviation and gradient_deviation as supplementary inputs.",
+  aaspi:"nonparallelism (dedicated program under Geometric Attributes tab — outputs dip_deviation, gradient_deviation, and total_deviation volumes)", warning:null},
+
+"disorder":         {name:"Disorder", cat:"texture", catLabel:"Texture", color:"#0F6E56",
+  measures:"Volumetric estimate of local signal-to-noise ratio computed using second derivatives of windowed amplitude energy, normalized by RMS amplitude to remove amplitude sensitivity. High disorder = chaotic reflections or poor data quality. Maps interpretation confidence spatially.",
+  targets:["facies","mcs"],
+  ml_note:"Excellent quality-weighting input for ML. Use to flag areas where ML predictions carry higher uncertainty — high disorder means the ML is classifying noise, not geology.",
+  aaspi:"disorder (under Geometric Attributes tab — requires dip3d inline/crossline dip components; internally uses stat3d to compute the standard deviation of an intermediate disorder volume)", warning:null},
+
+// AVO / DQ workflow
+"dq_trace":         {name:"Distance Quadrant (DQ) Trace", cat:"avo", catLabel:"AVO / DHI", color:"#990000",
+  measures:"Distance on an AVO Amplitude/Gradient (AB) crossplot from the origin to each data point — mathematically DQ = √(A²+B²). Prior to inversion, the DQ trace is a relative porosity curve. Post-inversion, a quantitative prediction of porosity or Hydrocarbon Pore Volume at every seismic sample. Discriminates gas sands, wet sands, and shales across all AVO classes without requiring a priori petrophysics or wavelet knowledge. DQ Average and DQ Sum outputs map average and cumulative relative porosity across a peak-trough layer.",
+  targets:["dhi","facies","porosity","fluids"],
+  ml_note:"Powerful ML input for fluid and porosity classification. Use DQ and Theta PX together as the AVO cluster mapping pair — DQ defines the distance from origin (porosity proxy), Theta PX defines the direction (lithology/fluid proxy). The 3D crossplot with Half Isochron as z-axis enables cluster separation of distinct rock types.",
+  aaspi:"AASPI DQ workflow (dedicated AASPI attribute — outputs DQ trace, DQ Average, DQ Sum, Near Optimized, Far-Near Optimized volumes)", warning:"Requires near and far partial stacks with relative amplitude preservation and well-conditioned NMO. Requires zero-phase data. Must be used with Theta PX for complete AVO cluster analysis."},
+
+"theta_px":         {name:"Theta PX (AVO Polar Angle)", cat:"avo", catLabel:"AVO / DHI", color:"#990000",
+  measures:"Polar angle on the AVO Amplitude/Gradient crossplot from the x-axis to each data point. Prior to inversion, Theta PX is a crossplot cluster mapping attribute — separating distinct lithology and fluid classes by their angular position. Post-inversion, Theta PX + DQ together provide quantitative porosity or Hydrocarbon Pore Volume estimates.",
+  targets:["dhi","fluids","facies"],
+  ml_note:"Use with DQ as a pair for AVO-based ML classification. Theta PX defines the angular direction in AVO space (separates lithology classes); DQ defines the radial distance (porosity/fluid strength). Together they encode the full AVO cluster geometry.",
+  aaspi:"AASPI DQ workflow (companion attribute to DQ — same workflow)", warning:"Same requirements as DQ trace. Interpret only in conjunction with DQ — Theta PX alone has no physical meaning."},
+
+"isochron":         {name:"Isochron and Half Isochron", cat:"avo", catLabel:"AVO / Thickness", color:"#990000",
+  measures:"Isochron: time thickness of a peak-to-trough layer in ms. Half Isochron: time from a peak or trough to the nearest zero crossing. Isochron maps layer thinning, thickening, and pinchouts without requiring explicit horizon mapping. Half Isochron distinguishes homogeneous vs. heterogeneous lithology within a layer and identifies tuning zones. Half Isochron is the z-axis of AASPI 3D AVO crossplots, providing the third dimension for lithology-fluid cluster separation.",
+  targets:["thin_beds","dhi","porosity","thickness"],
+  ml_note:"Half Isochron is the z-axis for AASPI 3D DQ-ThetaPX crossplot clustering — it separates clusters that overlap in the 2D AVO plane. Valuable thin bed ML input. Merged with a velocity cube, Isochron provides gross rock volume estimates.",
+  aaspi:"AASPI DQ workflow (isochron and half_isochron output volumes)", warning:null},
+
+"stickogram":       {name:"StickOgram", cat:"geometric", catLabel:"Geometric / Structure", color:"#534AB7",
+  measures:"Reduces the seismic volume to center-of-peaks, center-of-troughs, and zero crossings from near-stack traces — stripping away the wavelet and retaining the most geologically significant reflection events. On timeslices, reveals initial time-structure maps and fault lineaments at 10–20 ms increments. On sections, clearly shows toplap, downlap, parallel bedding, mounding, and lens geometries.",
+  targets:["facies","faults","channels","deepwater_fans","unconventional"],
+  ml_note:"High-grades seismic data to the most critical events before ML — reduces data volume while retaining geologic information. Use near-stack traces for input per AASPI documentation. Excellent pre-classification conditioning step.",
+  aaspi:"AASPI DQ workflow (stickogram output — uses center-of-peaks, center-of-troughs, and zero crossings from near stack traces)", warning:null},
+
+// New attributes for expanded target coverage
+"amp_gradient":     {name:"Amplitude Gradient (Inline / Crossline)", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Lateral first derivative of amplitude along inline and crossline directions, computed in the dip-following direction. Highlights amplitude edges - channel margins, reef flanks, lobe boundaries - even when amplitude contrast across the boundary is subtle.",
+  targets:["channels","deepwater_fans","reefs","facies","salt"],
+  ml_note:"Good edge-sensitive amplitude input for ML. Use alongside envelope for combined amplitude magnitude and edge response.",
+  aaspi:"instantaneous_attributes or dip3d-guided gradient computation", warning:"Should be computed along structural dip, not vertically. Sensitive to any lateral amplitude variation including footprint."},
+
+"amp_change":       {name:"Amplitude Change (Temporal Gradient)", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Time derivative of amplitude envelope - rate of change of amplitude vertically. High values where amplitude changes rapidly with depth: top and base of a reservoir, base of a gas chimney, or thin-bed tuning zone.",
+  targets:["gas_chimney","thin_beds","dhi","channels"],
+  ml_note:"Useful complement to envelope in thin-bed and chimney classification. Adds vertical change information to a static amplitude measurement.",
+  aaspi:"instantaneous_attributes (d_envelope output)", warning:null},
+
+"normalized_amp":   {name:"Normalized Amplitude / Relative Amplitude Anomaly", cat:"amplitude", catLabel:"Amplitude", color:"#3A6B3A",
+  measures:"Amplitude normalized by a background trend or by the median amplitude within a moving window. Removes the large-scale acquisition and lithology trend to reveal subtle anomalies on top of a variable background.",
+  targets:["dhi","gas_chimney","channels","thin_beds"],
+  ml_note:"Useful for DHI or chimney detection where the absolute amplitude level varies laterally due to overburden. Removes trend before classification.",
+  aaspi:"Computed as post-processing of envelope or RMS outputs", warning:"Window size critical - too small amplifies short-wavelength noise; too large removes the anomaly being sought."},
+
+"seismic_phase":    {name:"Instantaneous Phase", cat:"phase", catLabel:"Phase", color:"#1A5FA0",
+  measures:"Raw instantaneous phase of the analytic trace (-180 to +180 degrees). Sensitive to reflector continuity independent of amplitude. Useful for tracing reflections that dim laterally and for imaging salt-sediment contacts where amplitude is variable.",
+  targets:["salt","gas_chimney","mcs","facies"],
+  ml_note:"Never use raw instantaneous phase in ML - use cosine of instantaneous phase instead, which removes the -180/+180 discontinuity.",
+  aaspi:"instantaneous_attributes (instantaneous_phase output)", warning:"Discontinuous at ±180°. For ML input, always replace with cosine of instantaneous phase. Best used only for direct visual interpretation."},
+
+"salt_proximity":   {name:"Salt Proximity / Distance to Salt", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Distance in time or depth from each point in the volume to the nearest interpreted salt surface. Proximal-to-salt sediments show distinct deformation, velocity pull-up/push-down, and amplitude effects compared to far-field equivalents.",
+  targets:["salt","deepwater_fans","facies"],
+  ml_note:"Powerful contextual input for ML classification near salt. Encodes the effect of salt proximity on observed seismic character without requiring explicit interpretation of salt geometry.",
+  aaspi:"Derived attribute - computed from interpreted salt surfaces using AASPI distance transform utilities", warning:"Requires an interpreted salt surface. Uncertainty in the salt interpretation propagates directly into this attribute."},
+
+"curvature_strikes":{name:"Strike Curvature and Dip Curvature (Euler Curvature)", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Curvature measured in the dip direction (dip curvature) and along strike (strike curvature). These are Euler curvatures — projections of the curvature tensor onto a vertical plane at a specified azimuth. Complementary to k1/k2: dip curvature is sensitive to flexures in the transport direction; strike curvature highlights lineaments and fracture corridors parallel to structural strike.",
+  targets:["fractures","unconventional","basement","faults"],
+  ml_note:"Add as companions to k1/k2 for fracture characterization ML. Strike curvature isolates fracture corridors aligned with structural fabric. Euler curvature can be computed at multiple azimuths to animate through structural lineaments.",
+  aaspi:"curvature3d for k1/k2/strike-of-k1, then euler_curvature to project onto user-defined azimuth directions — or select dip/strike curvature outputs directly from curvature3d", warning:"Requires dip3d and filter_dip_components. Very sensitive to noise — SOF before dip computation strongly recommended."},
+
+"mean_curv":        {name:"Mean Curvature", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Average of the two principal curvatures (k1+k2)/2. Sensitive to the overall bending of a surface rather than the extremes. Maps regional fold geometry and differential compaction features that appear subdued in k1 or k2 alone.",
+  targets:["channels","deepwater_fans","reefs","structurally_complex"],
+  ml_note:"Less extreme than k1 or k2 individually — useful when principal curvatures are noisy. Good regional structural context input to ML.",
+  aaspi:"curvature3d (mean_curvature output — computed in the same run as k1 and k2)", warning:"Requires dip3d. Quality is sensitive to noise level and SOF application. Run filter_dip_components before curvature3d."},
+
+"reflector_contin": {name:"Reflector Continuity / Long-Range Similarity", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Similarity computed over longer lateral distances than standard short-range coherence. Emphasizes laterally persistent features - continuous reflectors, unconformities, and sheet-geometry events - while suppressing the response of isolated small faults.",
+  targets:["deepwater_fans","unconformity","facies","reefs"],
+  ml_note:"Complement short-range similarity with long-range version for facies discrimination - together they encode both local discontinuity and regional continuity.",
+  aaspi:"similarity3d (increase inline/crossline aperture parameter)", warning:"Requires dip3d. Larger apertures increase computation time. Tune aperture to the expected lateral scale of your continuity target."},
+
+"freq_shadow":      {name:"Low-Frequency Shadow / Frequency Anomaly", cat:"frequency", catLabel:"Frequency", color:"#854F0B",
+  measures:"Anomalously low instantaneous or peak frequency immediately below a reservoir or gas accumulation. Gas attenuation preferentially removes high-frequency energy, creating a low-frequency shadow in the amplitude spectrum below the hydrocarbon contact.",
+  targets:["gas_chimney","dhi","thin_beds"],
+  ml_note:"Highly specific indicator - use as confirmatory attribute alongside amplitude anomaly. Not reliable at all reservoir geometries.",
+  aaspi:"Derived from instantaneous_frequency or spec_cwt peak_freq output", warning:"Low S/N and thin-bed tuning effects can mimic frequency shadows. Always verify against well data if available. Sensitive to attenuation and spreading corrections."},
+
+"spec_decomp_rgb":  {name:"Spectral Decomposition RGB Blend", cat:"frequency", catLabel:"Frequency", color:"#854F0B",
+  measures:"Three spectral voice components (low, mid, high frequency) co-rendered as red, green, and blue channels. Different colors map features of different thickness simultaneously — channels and lobes invisible on broadband data appear as distinct color patterns.",
+  targets:["channels","deepwater_fans","thin_beds","facies"],
+  ml_note:"The RGB blend itself is a visualization, not an ML input. Use the three constituent voice volumes (spec_voice_3d_cwt or spec_voice_3d_cmp) as individual ML inputs instead. The blend is the QC display for verifying frequency selection.",
+  aaspi:"spec_cwt or spec_cmp — run three voice components at frequencies bracketing your target tuning thickness, then co-render as RGB in your interpretation platform", warning:"Use peak_freq_cwt to select frequencies resonant with your target before committing to an RGB combination. Three poorly chosen frequencies produce a meaningless blend."},
+
+"thin_bed_decomp":  {name:"Thin Bed Decomposition and Bandwidth Extension", cat:"frequency", catLabel:"Frequency / Phase", color:"#854F0B",
+  measures:"Parameterizes the seismic trace as a sum of thin-bed doublet responses rather than spikes. Outputs: bandwidth-extended seismic (d_bwe_tbd — sharpened), and four phase components — 0°, 90°, 180°, and 270° (d_0_phase_tbd, d_90_phase_tbd, d_180_phase_tbd, d_270_phase_tbd). The 270° (-90°) component particularly highlights thin hydrocarbon-charged reservoirs.",
+  targets:["thin_beds","dhi","facies","channels"],
+  ml_note:"Phase components are excellent ML inputs for DHI characterization. The 270° component isolates thin bright-spot responses. Bandwidth-extended data can be used as input to geometric attributes to improve thin-bed resolution.",
+  aaspi:"thin_bed_decomposition (under Spectral Attributes tab — requires seismic amplitude + source wavelet estimate; outputs d_bwe_tbd, d_0_phase_tbd, d_90_phase_tbd, d_180_phase_tbd, d_270_phase_tbd)", warning:"Quality depends entirely on accuracy of the source wavelet. Bandwidth extension sharpens existing thin bed responses — it does not reconstruct events not present in the original data."},
+
+"spectral_probe":   {name:"Spectral Probe (Normalized Cross-Correlation)", cat:"frequency", catLabel:"Frequency", color:"#854F0B",
+  measures:"Normalized cross-correlation of the seismic trace with sine/cosine basis functions at specified periods — output ranges -1 to +1, similar to an AGC-corrected spectral voice. Computationally fast; useful for quickly identifying which frequency bands best illuminate structural and stratigraphic features before committing to full spectral decomposition.",
+  targets:["facies","faults","channels","thin_beds"],
+  ml_note:"Fast reconnaissance tool for frequency selection. Results are not data-reconstructible and amplitude information is lost by normalization. Use for target frequency identification, then compute proper spec_cwt voice components for ML input.",
+  aaspi:"spectral_probe (under Spectral Attributes tab — specify minimum period, maximum period, and increment in seconds; outputs normalized cross-correlation volumes at each period)", warning:"Cannot reconstruct data. Normalization removes amplitude information — do not use as a quantitative ML input. Useful only for identifying diagnostic frequency ranges."},
+
+"chaos":            {name:"Chaos Attribute", cat:"texture", catLabel:"Texture", color:"#0F6E56",
+  measures:"Measures the local lack of organization in seismic reflectors - a direct measure of chaotic reflection character. High chaos marks MTCs, salt bodies, gas chimneys, and heavily fractured intervals. Distinct from similarity/coherence which measures lateral continuity.",
+  targets:["mcs","salt","gas_chimney","volcanics"],
+  ml_note:"Powerful ML input for chaotic geobody segmentation. Use alongside similarity to separate chaotic zones from simple discontinuities.",
+  aaspi:"Implemented in some commercial platforms; AASPI nonparallelism total_deviation provides similar information with better physical basis", warning:"Definition of chaos varies by software vendor. Always verify the attribute output against known chaotic zones in the data."},
+
+"saliency":         {name:"Seismic Saliency / Most Significant Events", cat:"texture", catLabel:"Texture", color:"#0F6E56",
+  measures:"Identifies the most geologically significant reflection events in a volume based on their amplitude, continuity, and structural context. Reduces interpretation noise by focusing on events that are both spatially coherent and amplitude-significant.",
+  targets:["facies","basement","volcanics","mcs"],
+  ml_note:"Pre-processing for ML rather than a direct ML input. Reduces the influence of incoherent noise events on supervised classification.",
+  aaspi:"Concept related to StickOgram in AASPI workflow - see stickogram attribute", warning:null},
+
+"vp_vs_ratio":      {name:"Vp/Vs Ratio (from partial stacks)", cat:"avo", catLabel:"AVO / Lithology", color:"#990000",
+  measures:"Ratio of P-wave to S-wave velocity estimated from the variation of reflection amplitude with offset. Gas sands typically have low Vp/Vs; brines and shales are higher. Fundamental lithology and fluid discriminator from AVO data.",
+  targets:["dhi","unconventional","facies","porosity"],
+  ml_note:"Excellent lithology and fluid discriminator for ML when pre-stack data is available. Combine with DQ trace for a comprehensive fluid/lithology classification.",
+  aaspi:"Derived from partial stacks via simultaneous inversion or AASPI AVO attribute workflow", warning:"Requires at least near and far partial stacks with good relative amplitude preservation and well-conditioned NMO. Sensitive to anisotropy in unconventional settings."},
+
+"reflectivity_phase":{name:"Reflection Character / Polarity Mapping", cat:"phase", catLabel:"Phase / Structure", color:"#1A5FA0",
+  measures:"Maps the dominant polarity and phase character of reflections across the survey. Identifies hard kicks (positive impedance) vs. soft kicks (negative impedance), polarity reversals at fluid contacts, and phase anomalies associated with gas effects.",
+  targets:["dhi","reefs","salt","gas_chimney"],
+  ml_note:"Use cosine of phase (not raw phase) as ML input. Polarity maps directly interpretable for DHI screens.",
+  aaspi:"instantaneous_attributes (cos_instantaneous_phase; polarity output)", warning:"Requires zero-phase data. Phase errors from processing (wrong wavelet, residual NMO) propagate directly into this attribute."},
+
+"ant_track":        {name:"Ant Tracking / Fault Probability", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Algorithmic tracing of fault and fracture planes through a coherence or similarity volume. Maps fault surfaces as continuous objects rather than individual coherence anomalies. Fault probability volumes from ant-track workflows are a common input to structural interpretation.",
+  targets:["faults","fractures","unconventional","basement"],
+  ml_note:"Fault probability from ant-track or equivalent is a very strong ML input for structural classification. Encode structural complexity without manual fault picking.",
+  aaspi:"Petrel Ant Tracking (commercial) or fault probability workflow using AASPI similarity3d as input", warning:"Quality is entirely dependent on input similarity/coherence quality. Footprint and coherent noise must be suppressed first. Tends to over-segment in noisy data."},
+
+"vol_curvature":    {name:"Volumetric Curvature (3D Curvature)", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Full 3D curvature computed at every sample in the seismic volume rather than on a surface. Captures structural deformation at all levels simultaneously - not just at a single horizon. Particularly valuable for through-going fault systems and volcanics with complex 3D geometry.",
+  targets:["faults","volcanics","basement","unconventional","salt"],
+  ml_note:"True 3D curvature adds structural information at every level - not just the horizon level. Critical for ML workflows that classify full 3D bodies.",
+  aaspi:"curvature3d (volumetric mode - run without specifying a horizon)", warning:"Computationally intensive. Quality degrades significantly without good SOF and dip computation. Not appropriate as a first pass for unfamiliar data."},
+
+"geostatistical":   {name:"Geostatistical / Variogram-Based Texture", cat:"texture", catLabel:"Texture", color:"#0F6E56",
+  measures:"Spatial statistics of seismic amplitude in the lateral direction: nugget, sill, and range of the variogram describe the spatial correlation structure of amplitude at each depth level. Captures texture at a scale between GLCM (sample-by-sample) and spectral decomposition (frequency domain).",
+  targets:["facies","unconventional","reefs"],
+  ml_note:"Variogram-derived attributes encode spatial correlation at a specified lag distance - complement GLCM with information at longer wavelengths.",
+  aaspi:"External computation - variogram extraction tools in AASPI research workflow", warning:"Experimental in most production workflows. Variogram computation is expensive and direction-dependent. Results depend strongly on chosen lag distance and direction."},
+
+"seismic_inversion":{name:"Model-Based or Simultaneous Inversion (AI / SI)", cat:"impedance", catLabel:"Impedance", color:"#5F5E5A",
+  measures:"Full-bandwidth acoustic impedance (AI) and/or shear impedance (SI) from model-based or simultaneous inversion. Converts reflectivity to a layer property tied to lithology and fluid content. Fundamental input for quantitative reservoir characterization.",
+  targets:["dhi","facies","reefs","porosity","unconventional"],
+  ml_note:"AI and SI are outstanding ML inputs for lithology and fluid classification. Use alongside DQ and Theta PX for a complete quantitative characterization input set.",
+  aaspi:"External inversion workflow (Strata, Jason, Hampson-Russell) - AASPI DQ and Theta PX complement inversion results", warning:"Requires well control and careful wavelet extraction. Results are bandlimited - low-frequency model and high-frequency well data constrain outside the seismic band. Resolution limited to ~lambda/4."},
+
+"salt_edge":        {name:"Salt Edge / Salt Body Boundary Detection", cat:"geometric", catLabel:"Geometric", color:"#534AB7",
+  measures:"Coherence or gradient-based detection optimized to map the sharp impedance contrast at the salt-sediment interface. Salt has highly distinctive acoustic properties - the edge is one of the sharpest reflectors in the data and benefits from edge-specific rather than generic geometric attributes.",
+  targets:["salt","deepwater_fans"],
+  ml_note:"Use as a ML class boundary indicator for salt segmentation. Combine with cosine of phase, envelope, and dip magnitude for a complete salt detection input set.",
+  aaspi:"similarity3d with short aperture + envelope gradient computed along structural dip", warning:"Sub-salt and overburden sideswipe can produce false edge detections. Requires careful QC against the interpreted salt geometry."},
+
+"waveform_class":   {name:"Waveform Classification / Self-Organizing Map Output", cat:"texture", catLabel:"Texture / ML", color:"#0F6E56",
+  measures:"The result of an unsupervised waveform classification (SOM, k-means, or equivalent) run on a multi-attribute input set. Maps the seismic volume into distinct waveform classes - each class corresponds to a distinct seismic expression of geology.",
+  targets:["facies","channels","deepwater_fans","mcs"],
+  ml_note:"This IS an ML output, not an input. Include as context for how the current recommendation fits into a multi-pass ML workflow. The output of one ML run can be an input to the next.",
+  aaspi:"Post-processing of any AASPI attribute set using SOM, k-means, or supervised classification tools", warning:"This is an output attribute, not an input attribute. It should not be fed back into ML without careful thought about circularity."}
+};
+
+// ══════════════════════════════════════════════
+// RECOMMENDATION ENGINE
+// ══════════════════════════════════════════════
+function recommend(answers) {
+  const target = answers.primary_target;
+  const secondary = answers.secondary_targets || [];
+  const deposit = answers.depositional;
+  const resolution = answers.resolution_context;
+  const ampPres = answers.amplitude_pres;
+  const prestack = answers.prestack;
+  const snr = answers.snr;
+  const workflow = answers.workflow_goal;
+  const dataDim = answers.data_dim;
+  const software = answers.software;
+  const numAttr = answers.num_attributes;
+
+  // Preprocessing answers (all now in section 1)
+  const specBal = answers.spectral_balance;
+  const sofDone = answers.sof_done;
+  const footprintTreated = answers.footprint_treated;
+  const dipComputed = answers.dip_computed;
+  const coherentNoise = answers.coherent_noise;
+  // Convenience aliases used throughout
+  const footprint = footprintTreated;
+  const sof = sofDone;
+
+  const core = [];
+  const consider = [];
+  const aaspiSpecial = [];
+  const warnings = [];
+  const preprocessing = []; // NEW: preprocessing steps needed
+
+  const ampOk = ["yes","probably"].includes(ampPres);
+  const prestackOk = ["full_gathers","partial_stacks"].includes(prestack);
+  const snrOk = ["high","good"].includes(snr);
+  const isML = ["ml_unsupervised","ml_supervised","both"].includes(workflow);
+  const isAaspi = ["aaspi","mixed"].includes(software);
+  const focused = numAttr === "focused";
+  const is2D = ["2d_grid","2d_sparse"].includes(dataDim);
+  const isLegacy = dataDim === "3d_legacy";
+  const isLimited = dataDim === "3d_limited";
+
+  // Dip guidance flag
+  const needsDip = !["yes","yes_uncheck"].includes(dipComputed);
+  const dipOk = ["yes","yes_uncheck"].includes(dipComputed);
+  const sofOk = ["yes"].includes(sofDone);
+  const footprintOk = ["yes_none","yes_treated","minor"].includes(footprintTreated);
+  const specBalOk = ["yes","yes_decon"].includes(specBal);
+
+  // ── PREPROCESSING STEPS NEEDED ──
+  if (!specBalOk) {
+    preprocessing.push({
+      step:"Spectral balancing",
+      why:"Flattens the frequency spectrum so that tuning effects reflect geology, not the source wavelet shape. Required before spectral decomposition — without it, spectral voices primarily map the wavelet, not beds. Also improves dip estimation and coherence quality. Programs spec_cwt and spec_cmp both include an internal spectral balancing option — you can balance and decompose in a single pass, or use the standalone spectral_balance program first.",
+      aaspi:"spectral_balance (standalone, survey-averaged mode recommended as default); or enable internal balancing in spec_cwt or spec_cmp GUI",
+      urgent: specBal === "no"
+    });
+  }
+  if (!dipOk) {
+    preprocessing.push({
+      step:"Compute structural dip (inline and crossline dip components)",
+      why:"Every geometric attribute in this recommendation list requires structural dip as input. Computing coherence, curvature, GLCM, or nonparallelism without dip-guided windows means the analysis window cuts vertically through the data - mixing geology from different layers and producing poor, vertically-smeared results. This is the single most important preprocessing step for geometric attributes.",
+      aaspi:"dip3d (run this before similarity3d, curvature3d, glcm3d, nonparallelism, sof3d)",
+      urgent: dipComputed === "no"
+    });
+  }
+  if (!sofOk) {
+    preprocessing.push({
+      step:"Structure-oriented filtering (SOF)",
+      why:"Smooths the data along reflectors rather than vertically, improving S/N while preserving geologic edges. Significantly improves coherence, curvature, dip estimation, and texture attributes. Run after dip computation and before geometric attribute extraction.",
+      aaspi:"sof3d (requires dip3d output as input)",
+      urgent: sofDone === "no"
+    });
+  }
+  if (!footprintOk) {
+    preprocessing.push({
+      step:"Acquisition footprint suppression",
+      why:"Footprint appears as regular stripes aligned with shot and receiver geometry. It is not geology. Every geometric attribute will reproduce it - coherence maps it as false faults, curvature maps it as structural features, and ML will learn it as a facies. It must be addressed before computing any geometric or texture attributes.",
+      aaspi:"AASPI footprint suppression workflow (kx-ky filtering + adaptive subtraction) or CWT-based footprint workflow for legacy data",
+      urgent: footprintTreated === "no_significant"
+    });
+  }
+  if (coherentNoise === "significant") {
+    preprocessing.push({
+      step:"Coherent noise suppression",
+      why:"Steeply dipping coherent noise (ground roll, migration artifacts, multiples) creates false discontinuities in coherence and false curvature anomalies. It must be suppressed before coherence or curvature computation or those attributes will map noise as geology.",
+      aaspi:"AASPI coherent noise suppression workflow (for ground roll) or filter_spectral_components (for migration operator aliasing)",
+      urgent: true
+    });
+  }
+
+  // ── WARNINGS ──
+  if (!ampOk) warnings.push("Amplitude preservation is uncertain or absent. Amplitude-sensitive attributes (envelope, RMS, sweetness, DQ) will not be reliable. Focus on phase and geometric attributes.");
+  if (!dipOk) warnings.push("Dip-guided computation is required for coherence, curvature, aberrancy, GLCM, and nonparallelism. Computing these without structural dip produces poor results. See preprocessing steps below.");
+  if (!footprintOk) warnings.push("Acquisition footprint may be present. Every geometric attribute will reproduce it. See preprocessing steps.");
+  if (resolution === "below_tuning" || resolution === "unknown") warnings.push("Target at or near tuning. Waveform classification reflects interference effects. Spectral decomposition at the tuning frequency is more diagnostic than broadband attributes.");
+  if (isML && !sofOk) warnings.push("For ML workflows, structure-oriented filtering before geometric and texture attribute extraction is strongly recommended.");
+  if (isLegacy) warnings.push("Legacy 3D data: expect more severe acquisition footprint and narrower azimuth coverage. Footprint suppression is especially important before geometric attributes. Curvature quality will likely be lower than from modern data. GLCM and nonparallelism are more noise-sensitive — QC carefully.");
+  if (is2D) warnings.push("2D data: volumetric geometric attributes (coherence, curvature, GLCM, nonparallelism) are not meaningful on 2D lines. Focus on trace-by-trace instantaneous attributes, spectral decomposition, and relative acoustic impedance. Spatial pattern recognition is very limited.");
+  if (isLimited) warnings.push("Limited 3D geometry: geometric attribute quality will be reduced in the sparse or limited-coverage direction. Check that coherence and curvature results are not dominated by the sampling geometry before interpreting them.");
+
+  // ── TARGET-BASED CORE RECOMMENDATIONS ──
+  if (target === "facies") {
+    core.push("cos_phase");
+    if (ampOk) core.push("envelope");
+    core.push("similarity");
+    core.push("nonparallelism");  // AASPI — primary for facies
+    if (!focused) core.push("dip_magnitude");
+    if (isML) { core.push("glcm"); }
+    if (!focused && ampOk) core.push("wavelet_freq");
+  }
+  if (target === "channels") {
+    if (ampOk) core.push("envelope");
+    core.push("similarity");
+    core.push("cos_phase");
+    core.push("convergence");  // AASPI — primary for channels
+    if (!focused) core.push("curvature_k1k2");
+    if (!focused) core.push("mean_curv");
+  }
+  if (target === "deepwater_fans") {
+    if (ampOk) core.push("envelope");
+    core.push("similarity");
+    core.push("cos_phase");
+    core.push("convergence");  // AASPI
+    core.push("reflector_contin");
+    if (!focused) core.push("spectral_decomp");
+    if (!focused) core.push("spec_decomp_rgb");
+    if (!focused) core.push("curvature_k1k2");
+  }
+  if (target === "reefs") {
+    if (ampOk) core.push("envelope");
+    core.push("similarity");
+    core.push("curvature_k1k2");
+    core.push("shape_index");  // AASPI
+    core.push("amplitude_curv");  // AASPI
+    if (!focused) core.push("cos_phase");
+    if (ampOk && !focused) core.push("relative_ai");
+  }
+  if (target === "faults") {
+    core.push("similarity");
+    core.push("curvature_k1k2");
+    core.push("dip_magnitude");
+    core.push("aberrancy");  // AASPI — primary for faults
+    if (!focused) core.push("curvature_strikes");  // AASPI
+    if (!focused) core.push("ant_track");
+  }
+  if (target === "dhi") {
+    if (ampOk) { core.push("envelope"); core.push("sweetness"); }
+    if (prestackOk) { core.push("dq_trace"); core.push("theta_px"); core.push("isochron"); }  // AASPI
+    else core.push("cos_phase");
+    if (!focused && ampOk) core.push("rms_amplitude");
+    if (!focused) core.push("freq_shadow");
+    if (!focused) core.push("reflectivity_phase");
+    if (!focused) core.push("thin_bed_decomp");  // AASPI phase components for DHI
+  }
+  if (target === "mcs") {
+    core.push("similarity");
+    core.push("nonparallelism");  // AASPI — primary for MCS
+    core.push("cos_phase");
+    core.push("chaos");
+    if (!focused) core.push("disorder");  // AASPI
+  }
+  if (target === "salt") {
+    core.push("similarity");
+    core.push("cos_phase");
+    core.push("salt_edge");
+    if (ampOk) core.push("envelope");
+    core.push("dip_magnitude");
+    if (!focused) core.push("vol_curvature");  // AASPI
+    if (!focused) core.push("chaos");
+  }
+  if (target === "gas_chimney") {
+    if (ampOk) core.push("envelope");
+    core.push("similarity");
+    core.push("cos_phase");
+    core.push("freq_shadow");
+    core.push("inst_freq");
+    if (!focused) core.push("chaos");
+    if (!focused) core.push("amp_change");
+    if (!focused) core.push("disorder");  // AASPI
+  }
+  if (target === "thin_beds") {
+    core.push("spectral_decomp");
+    core.push("spec_decomp_rgb");
+    core.push("peak_freq");
+    core.push("inst_freq");
+    if (ampOk) core.push("envelope");
+    if (prestackOk) core.push("isochron");  // AASPI
+    if (!focused) core.push("thin_bed_decomp");  // AASPI
+    if (!focused) core.push("tkv");  // AASPI
+  }
+  if (target === "basement") {
+    core.push("similarity");
+    core.push("curvature_k1k2");
+    core.push("aberrancy");  // AASPI — primary for basement
+    core.push("dip_magnitude");
+    if (!focused) core.push("vol_curvature");  // AASPI
+    if (!focused) core.push("curvature_strikes");  // AASPI
+  }
+  if (target === "unconventional") {
+    core.push("similarity");
+    core.push("curvature_k1k2");
+    core.push("curvature_strikes");  // AASPI
+    core.push("aberrancy");  // AASPI
+    if (!focused) core.push("dip_magnitude");
+    if (prestackOk) { core.push("dq_trace"); core.push("theta_px"); }  // AASPI
+    if (!focused) core.push("ant_track");
+  }
+  if (target === "volcanics") {
+    core.push("similarity");
+    core.push("cos_phase");
+    core.push("curvature_k1k2");
+    if (ampOk) core.push("envelope");
+    core.push("chaos");
+    if (!focused) core.push("vol_curvature");  // AASPI
+    if (!focused) core.push("reflector_contin");
+  }
+  if (target === "shallow_hazard") {
+    if (ampOk) core.push("envelope");
+    core.push("similarity");
+    core.push("cos_phase");
+    core.push("sweetness");
+    core.push("freq_shadow");
+    if (!focused) core.push("inst_freq");
+    if (!focused) core.push("disorder");  // AASPI
+  }
+
+  // ── SECONDARY TARGET ADDITIONS ──
+  if (secondary.includes("fractures") && !core.includes("aberrancy")) consider.push("aberrancy");
+  if (secondary.includes("fractures") && !core.includes("curvature_strikes")) consider.push("curvature_strikes");
+  if (secondary.includes("fractures") && !core.includes("amplitude_curv")) consider.push("amplitude_curv");
+  if (secondary.includes("porosity") && ampOk && prestackOk) { if (!core.includes("dq_trace")) consider.push("dq_trace"); }
+  if (secondary.includes("porosity") && ampOk && !prestackOk && !core.includes("relative_ai")) consider.push("relative_ai");
+  if (secondary.includes("fluids") && prestackOk) { if (!core.includes("dq_trace")) consider.push("dq_trace"); if (!core.includes("theta_px")) consider.push("theta_px"); }
+  if (secondary.includes("fluids") && ampOk && !prestackOk) { if (!core.includes("sweetness")) consider.push("sweetness"); }
+  if (secondary.includes("thickness") && !core.includes("isochron")) consider.push("isochron");
+  if (secondary.includes("unconformity") && !core.includes("convergence")) consider.push("convergence");
+  if (secondary.includes("salt_flanks") && !core.includes("salt_edge")) consider.push("salt_edge");
+  if (secondary.includes("salt_flanks") && !core.includes("dip_magnitude")) consider.push("dip_magnitude");
+  if (secondary.includes("deep_structure") && !core.includes("curvature_k1k2")) consider.push("curvature_k1k2");
+  if (secondary.includes("geomechanics") && prestackOk && !core.includes("vp_vs_ratio")) consider.push("vp_vs_ratio");
+
+  // ── CONSIDER additions by context ──
+  if (isML && !core.includes("glcm")) consider.push("glcm");
+  if (isML && !core.includes("nonparallelism") && ["facies","channels","deepwater_fans","mcs"].includes(target)) consider.push("nonparallelism");
+  if (isML && !core.includes("disorder")) consider.push("disorder");
+  if (resolution === "near_tuning" || resolution === "below_tuning") {
+    if (!core.includes("spectral_decomp")) consider.push("spectral_decomp");
+    if (!core.includes("peak_freq")) consider.push("peak_freq");
+    if (!core.includes("tkv")) consider.push("tkv");
+    if (!core.includes("thin_bed_decomp")) consider.push("thin_bed_decomp");
+  }
+  if (snrOk && !core.includes("tkv") && isML) consider.push("tkv");
+  if (["channels","facies","mcs","deepwater_fans"].includes(target) && !core.includes("avt")) consider.push("avt");
+  if (deposit === "structurally_complex" && !core.includes("curvature_k1k2")) consider.push("curvature_k1k2");
+  if (deposit === "structurally_complex" && !core.includes("aberrancy")) consider.push("aberrancy");
+  if (deposit === "carbonate" && !core.includes("shape_index")) consider.push("shape_index");
+  if (deposit === "deepwater" && !core.includes("convergence")) consider.push("convergence");
+  if (deposit === "salt_dominated" && !core.includes("chaos")) consider.push("chaos");
+  if (deposit === "unconventional_shale" && !core.includes("curvature_strikes")) consider.push("curvature_strikes");
+  if (deposit === "volcanic_setting" && !core.includes("chaos")) consider.push("chaos");
+  if (ampOk && !core.includes("relative_ai") && ["reefs","facies","dhi"].includes(target)) consider.push("relative_ai");
+  if (isML && !core.includes("wavelet_freq") && core.includes("inst_freq")) consider.push("wavelet_freq");
+  if (isML && !core.includes("stickogram")) consider.push("stickogram");
+  // spectral_probe as reconnaissance suggestion for any spectral-heavy workflow
+  if (!core.includes("spectral_decomp") && !consider.includes("spectral_decomp") && ["thin_beds","channels","deepwater_fans","facies"].includes(target)) consider.push("spectral_probe");
+  if (prestackOk && ampOk && !core.includes("seismic_inversion") && ["dhi","reefs","facies","porosity"].some(t=>t===target||secondary.includes(t))) consider.push("seismic_inversion");
+  if (prestackOk && !core.includes("vp_vs_ratio") && ["dhi","unconventional"].includes(target)) consider.push("vp_vs_ratio");
+
+  // Deduplicate
+  const dedup = (arr) => [...new Set(arr)].filter(a=>ATTRS[a]);
+  const coreSet = dedup(core);
+  const considerSet = dedup(consider).filter(a=>!coreSet.includes(a));
+
+  return { core: coreSet, consider: considerSet, aaspi: [], warnings, preprocessing };
+}
+
+// ══════════════════════════════════════════════
+// STATE & RENDER
+// ══════════════════════════════════════════════
+let state = { page:0, answers:{} };
+
+function visibleSections() { return SECTIONS; }
+
+function pick(qid, val, multi) {
+  if (!multi) {
+    state.answers[qid] = state.answers[qid] === val ? undefined : val;
+    if (state.answers[qid] === undefined) delete state.answers[qid];
+  } else {
+    if (!state.answers[qid]) state.answers[qid] = [];
+    const arr = state.answers[qid];
+    const idx = arr.indexOf(val);
+    if (idx >= 0) arr.splice(idx,1); else arr.push(val);
+    if (arr.length === 0) delete state.answers[qid];
+  }
+  render(false);
+}
+
+function isSelected(qid, val, multi) {
+  if (!multi) return state.answers[qid] === val;
+  return Array.isArray(state.answers[qid]) && state.answers[qid].includes(val);
+}
+
+function sectionComplete(sec) {
+  return sec.questions.every(q => {
+    if (q.multi) return true; // multi-select optional
+    return state.answers[q.id] !== undefined;
+  });
+}
+
+function render(scrollToTop) {
+  const secs = visibleSections();
+  const el = document.getElementById('tool-content');
+  const isDone = state.page >= secs.length;
+  el.innerHTML = isDone ? buildResults() : buildSection(secs[state.page], secs);
+  if (scrollToTop) window.scrollTo(0,0);
+}
+
+function buildSection(sec, allSecs) {
+  const idx = allSecs.indexOf(sec);
+  const pct = Math.round((idx/allSecs.length)*100);
+  const done = sectionComplete(sec);
+  const isLast = idx === allSecs.length-1;
+
+  let html = `<div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="progress-label">${idx+1} / ${allSecs.length}</div>
+  </div>
+  <div class="sec-eyebrow">${sec.eyebrow}</div>
+  <div class="sec-heading">${sec.heading}</div>
+  <div class="sec-intro">${sec.intro}</div>`;
+
+  sec.questions.forEach((q,qi)=>{
+    html+=`<div class="q-block">
+      <div class="q-number">${idx+1}.${qi+1}${q.multi?' <span style="font-size:10px;color:var(--ink-light)">(select all that apply)</span>':''}</div>
+      <div class="q-label">${q.label}</div>
+      ${q.hint?`<div class="q-hint">${q.hint}</div>`:''}`;
+
+    if (q.groups) {
+      // Grouped chip rendering for primary_target
+      html += `<div style="display:flex;flex-direction:column;gap:14px">`;
+      q.groups.forEach(grp => {
+        html += `<div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border)">${grp.label}</div>
+          <div class="chip-grid">`;
+        grp.opts.forEach(o => {
+          const sel = isSelected(q.id, o.v, q.multi);
+          html += `<button class="chip ${sel?(q.multi?'multi-sel':'sel'):''}" onclick="pick('${q.id}','${o.v}',${q.multi})" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 13px">
+            <span style="font-weight:500;font-size:13px">${o.t}</span>
+            ${o.sub?`<span style="font-size:11px;opacity:0.65;font-weight:400;line-height:1.3">${o.sub}</span>`:''}
+          </button>`;
+        });
+        html += `</div></div>`;
+      });
+      html += `</div>`;
+    } else {
+      html += `<div class="chip-grid">
+        ${q.opts.map(o=>{
+          const sel = isSelected(q.id, o.v, q.multi);
+          return `<button class="chip ${sel?(q.multi?'multi-sel':'sel'):''}" onclick="pick('${q.id}','${o.v}',${q.multi})">${o.t}</button>`;
+        }).join('')}
+      </div>`;
+    }
+
+    html += `${q.multi?`<div class="chip-note">Optional — skip if none apply</div>`:''}
+    </div>`;
+  });
+
+  html+=`<div class="nav-row">
+    ${idx>0?`<button class="btn" onclick="navTo(${idx-1})">← Back</button>`:''}
+    <button class="btn primary" onclick="navTo(${isLast?allSecs.length:idx+1})" ${!done?'disabled':''}>
+      ${isLast?'Get my recommendations →':'Next →'}
+    </button>
+    ${!done?`<span class="nav-hint">Answer all required questions to continue</span>`:''}
+  </div>`;
+  return html;
+}
+
+function buildResults() {
+  const rec = recommend(state.answers);
+  const target = state.answers.primary_target;
+  const workflow = state.answers.workflow_goal;
+  const software = state.answers.software;
+  const targetNames = {
+    facies:"Seismic facies mapping", channels:"Channel detection",
+    deepwater_fans:"Deepwater lobes and fans", reefs:"Carbonate reef characterization",
+    faults:"Fault and fracture mapping", dhi:"DHI / fluid indicator detection",
+    mcs:"Mass transport complexes / chaotic geobodies", salt:"Salt body characterization",
+    gas_chimney:"Gas chimney / fluid migration", thin_beds:"Thin bed characterization",
+    basement:"Basement structure mapping", unconventional:"Unconventional reservoir characterization",
+    volcanics:"Volcanic/igneous complex characterization", shallow_hazard:"Shallow hazard assessment"
+  };
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+
+  function renderAttr(key) {
+    const a = ATTRS[key];
+    if (!a) return '';
+    const catColors = {amplitude:'#3A6B3A',phase:'#1A5FA0',frequency:'#854F0B',geometric:'#534AB7',texture:'#0F6E56',avo:'#990000',impedance:'#5F5E5A'};
+    const col = catColors[a.cat]||'#8A847E';
+    const isAaspiAttr = a.aaspi && a.aaspi.toLowerCase().includes('aaspi');
+    return `<div class="attr-card">
+      <div class="attr-card-header">
+        <div class="attr-cat-dot" style="background:${col}"></div>
+        <div class="attr-name">${a.name}</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          ${isAaspiAttr?`<span style="font-size:10px;font-family:'DM Mono',monospace;padding:2px 6px;border-radius:3px;background:var(--crimson-light);color:var(--crimson);border:1px solid rgba(153,0,0,0.3);white-space:nowrap;flex-shrink:0">AASPI</span>`:''}
+          <div class="attr-cat-label">${a.catLabel}</div>
+        </div>
+      </div>
+      <div class="attr-body">
+        <div class="attr-measures">${a.measures}</div>
+        ${a.warning?`<div class="attr-warning">⚠ ${a.warning}</div>`:''}
+        ${workflow && workflow!=='visual' && a.ml_note?`<div class="attr-why">ML note: ${a.ml_note}</div>`:''}
+        ${a.aaspi?`<div class="attr-aaspi">AASPI: ${a.aaspi}</div>`:''}
+      </div>
+    </div>`;
+  }
+
+  let html = `<div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-light);margin-bottom:8px">Generated ${dateStr}</div>
+  <div class="results-heading">Your recommended attribute set</div>
+  <div class="results-sub">
+    Target: <strong>${targetNames[target]||target}</strong> &nbsp;·&nbsp;
+    Workflow: <strong>${{visual:'Direct interpretation',ml_unsupervised:'Unsupervised ML',ml_supervised:'Supervised ML',both:'Interpretation + ML'}[workflow]||workflow}</strong>
+  </div>
+  <div style="font-size:12px;color:var(--ink-mid);margin-bottom:1.5rem;padding:8px 12px;background:var(--crimson-light);border-radius:6px;border-left:3px solid var(--crimson)">
+    Attributes tagged <span style="font-family:'DM Mono',monospace;font-size:10px;padding:1px 5px;border-radius:3px;background:var(--crimson-light);color:var(--crimson);border:1px solid rgba(153,0,0,0.3)">AASPI</span> are integrated directly in the recommended sets below — they are not afterthoughts. Many are developed at AASPI and represent capabilities not widely available in standard commercial platforms. If you are using commercial software, these are what you may be missing.
+  </div>`;
+
+  if (rec.warnings.length > 0) {
+    html += `<div class="caveat-box"><strong>Important notes before you compute anything:</strong><br><br>
+      ${rec.warnings.map(w=>`• ${w}`).join('<br><br>')}
+    </div>`;
+  }
+
+  // Preprocessing steps
+  if (rec.preprocessing.length > 0) {
+    const urgentSteps = rec.preprocessing.filter(p=>p.urgent);
+    const recommendedSteps = rec.preprocessing.filter(p=>!p.urgent);
+    html += `<div class="prep-section">
+      <div class="prep-heading">Do these first — before computing any attributes</div>
+      <div class="prep-sub">Based on your answers, these preprocessing steps are needed before attribute extraction. Skipping them does not save time — it means computing attributes from noise, footprint, or unbalanced data. The attributes will look convincing and be wrong.</div>
+      ${urgentSteps.map(p=>`<div class="prep-card urgent">
+        <div class="prep-card-header">
+          <div class="prep-step-label">${p.step}</div>
+          <div class="prep-priority">DO FIRST</div>
+        </div>
+        <div class="prep-body">${p.why}
+          <div class="prep-aaspi">AASPI: ${p.aaspi}</div>
+        </div>
+      </div>`).join('')}
+      ${recommendedSteps.map(p=>`<div class="prep-card">
+        <div class="prep-card-header">
+          <div class="prep-step-label">${p.step}</div>
+          <div class="prep-priority">RECOMMENDED</div>
+        </div>
+        <div class="prep-body">${p.why}
+          <div class="prep-aaspi">AASPI: ${p.aaspi}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="results-divider"></div>`;
+  }
+
+  if (rec.core.length > 0) {
+    html += `<div class="tier-heading">Core set — compute these first</div>
+    <div class="tier-sub">These attributes are most directly sensitive to the physical properties of your target. Start here before adding anything else. If you are building an ML input set, these form the defensible foundation. AASPI attributes appear here when they are primary for your target — not as a separate tier.</div>
+    <div class="attr-grid">${rec.core.map(renderAttr).join('')}</div>
+    <div class="results-divider"></div>`;
+  }
+
+  if (rec.consider.length > 0) {
+    html += `<div class="tier-heading">Consider adding — based on your secondary targets and data</div>
+    <div class="tier-sub">These attributes add value given your specific situation but are not universally required. Review each one and decide whether it addresses a specific question you need to answer.</div>
+    <div class="attr-grid">${rec.consider.map(renderAttr).join('')}</div>
+    <div class="results-divider"></div>`;
+  }
+
+  html += `<div class="results-divider"></div>
+  <div style="font-size:13px;color:var(--ink-mid);line-height:1.7;padding:14px 16px;background:var(--cream);border-radius:10px;margin-bottom:1.5rem">
+    <strong style="color:var(--ink)">Remember:</strong> This is a <em>starting point</em>, not a final answer. Run each attribute, examine it critically as a time slice at your target level, compare it to the acquisition geometry to check for footprint, and evaluate whether it makes geologic sense before including it in your final set or ML workflow. The best attribute set is the one you can explain and defend.
+  </div>
+  <div style="font-size:12px;color:var(--ink-mid);line-height:1.7;padding:12px 14px;background:var(--paper);border:1px solid var(--border);border-radius:8px;margin-bottom:1.5rem">
+    <strong style="color:var(--ink)">AASPI software:</strong> Full attribute library available at <a href="https://www.ou.edu/mcee/labs/aaspi" target="_blank" style="color:var(--crimson);text-decoration:none;border-bottom:1px solid rgba(153,0,0,0.3)">aaspi.ou.edu</a>. Questions: <a href="mailto:hbedle@ou.edu" style="color:var(--crimson);text-decoration:none;border-bottom:1px solid rgba(153,0,0,0.3)">hbedle@ou.edu</a>
+  </div>
+  <div class="result-actions">
+    <button class="btn" onclick="restartTool()">Start over</button>
+    <button class="btn primary" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+  <p style="font-size:11px;color:var(--ink-light);margin-top:10px;line-height:1.5">To save as PDF: click "Print / Save as PDF" and choose "Save as PDF" as the printer destination.</p>`;
+
+  return html;
+}
+
+function navTo(p){ state.page=p; render(true); }
+
+function startTool(){
+  document.getElementById('landing-page').style.display='none';
+  document.getElementById('tool-page').style.display='block';
+  window.scrollTo(0,0);
+  render(true);
+}
+
+function restartTool(){
+  state={page:0,answers:{}};
+  document.getElementById('tool-page').style.display='none';
+  document.getElementById('landing-page').style.display='block';
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
