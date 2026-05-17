@@ -179,7 +179,7 @@ Planned additions for future versions include:
 
 If you find a target or data situation the tool handles poorly, have suggestions for attributes to add, or want to contribute geologic use cases — please get in touch.
 
-**Contact:** [hbedle@ou.edu](mailto:hbedle@ou.edu)  
+**Contact:** [aaspi@ou.edu](mailto:aaspi@ou.edu)  
 Feedback, suggestions, and war stories all welcome.
 
 ---
