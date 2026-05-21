@@ -188,7 +188,7 @@ Feedback, suggestions, and war stories all welcome.
 
 If you use this tool in research, teaching, or a publication, please cite it as:
 
-> Bedle, H., Lubo-Robles, D., and Moreno-Ward, A. (2025). *Seismic Attribute Selection Guide*, v1.4. AASPI, University of Oklahoma. https://hbedle-subsurface.github.io/seismic-attribute-selector/
+> Bedle, H., Lubo-Robles, D., and Moreno-Ward, A. (2025). *Seismic Attribute Selection Guide*, v1.4. AASPI, University of Oklahoma. https://hbedle-subsurface.github.io/attribute-selector/
 
 ---
 
