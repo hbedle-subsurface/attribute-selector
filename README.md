@@ -2,7 +2,6 @@
 
 **Developed by [Dr. Heather Bedle](mailto:hbedle@ou.edu)**  
 **Co-authors: [Dr. David Lubo-Robles](mailto:davidlubo@ou.edu), [Dr. April Moreno-Ward](mailto:April.MorenoWard-1@ou.edu)**
-
 AASPI (Attribute Assisted Seismic Processing & Interpretation)  
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
