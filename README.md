@@ -156,7 +156,7 @@ Print or save the results as a PDF to document your attribute selection rational
 
 This tool is designed to be used alongside the **AASPI Seismic ML Uncertainty Assessment** — a structured questionnaire that helps geoscientists critically evaluate the uncertainty in their ML-based seismic interpretation results.
 
-🌐 [Seismic ML Uncertainty Assessment](https://hbedle-subsurface.github.io/seismic-ml-assessment/)
+🌐 **[Launch the tool](https://hbedle-subsurface.github.io/seismic_ml_assessment/)**
 
 **Recommended workflow:**
 1. Use this tool to select a thoughtful, defensible starting attribute set
