@@ -1,7 +1,7 @@
 # Seismic Attribute Selection Guide
 
 **Developed by [Dr. Heather Bedle](mailto:hbedle@ou.edu)**  
-**Co-authors: David Lubo · April Moreno Ward**  
+**Co-authors: [Dr. David Lubo-Robles](mailto:davidlubo@ou.edu), [Dr. April Moreno-Ward](mailto:April.MorenoWard-1@ou.edu)**
 AASPI (Attribute Assisted Seismic Processing & Interpretation)  
 University of Oklahoma, School of Geosciences  
 [aaspi.ou.edu](https://www.ou.edu/mcee/labs/aaspi)
@@ -177,7 +177,7 @@ Planned additions for future versions include:
 - Pre-stack spectral decomposition
 - Additional play types (geothermal, CCS/sequestration, mining)
 
-If you find a target or data situation the tool handles poorly, have suggestions for attributes to add, or want to contribute geologic use cases — please get in touch.
+If you find a target or data situation the tool handles poorly, have suggestions for attributes to add, or want to contribute geologic use cases - please get in touch.
 
 **Contact:** [aaspi@ou.edu](mailto:aaspi@ou.edu)  
 Feedback, suggestions, and war stories all welcome.
