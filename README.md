@@ -169,7 +169,7 @@ This tool is designed to be used alongside the **AASPI Seismic ML Uncertainty As
 
 ## This is a living document
 
-Version 1.4 covers 14 primary geologic targets, 43 attributes, and 6 depositional settings. All AASPI program names and output file references have been verified against the official AASPI software documentation (geometric attributes, single trace calculations, spectral attributes, and DQ workflow).
+Version 1 covers 14 primary geologic targets, 43 attributes, and 6 depositional settings. 
 
 Planned additions for future versions include:
 
